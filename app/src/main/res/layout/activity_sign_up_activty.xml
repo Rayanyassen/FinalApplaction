@@ -22,6 +22,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
+                android:onClick="onclickBTNSAVE"
                 android:text="Save"
                 app:cornerRadius="20dp" />
 
@@ -30,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button"
+                android:onClick="onclickBTNCancel"
+                android:text="Cancel"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>
