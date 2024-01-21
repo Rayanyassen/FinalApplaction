@@ -1,4 +1,4 @@
-package Data.UsersTable;
+package RY.Yassen.finalapplaction.Data.UsersTable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

@@ -1,4 +1,4 @@
-package Data.UsersTable;
+package RY.Yassen.finalapplaction.Data.UsersTable;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -12,7 +12,7 @@ import java.util.List;
  * فئه تحوي عمليات \دوال \ استعلامات  على قاعدة البيانات
  */
 @Dao//لتحديد ان الواجهه تحوي على استعلامات  على قاعدة البيانات
-public interface myUsersQuery {
+public interface MyUsersQuery {
     @Query("SELECT * FROM myusers")
     List<myusers> getAll();
 

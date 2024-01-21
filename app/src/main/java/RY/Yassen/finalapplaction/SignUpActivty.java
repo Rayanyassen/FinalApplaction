@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import Data.UsersTable.myUsersQuery;
-import Data.UsersTable.myusers;
+import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
+import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 
 public class SignUpActivty extends AppCompatActivity {
@@ -76,7 +76,7 @@ public class SignUpActivty extends AppCompatActivity {
         if (isAllok) {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             AppDataBase db = AppDataBase.getDB(getApplicationContext());
-            myUsersQuery usersQuery=db.getMyUserQuery();
+            MyUsersQuery usersQuery=db.getmyUserQuery();
             //فحص هل البريد الالكتروني موجود من قبل اي تم تسجيل من قبل
             if(usersQuery.checkEmail(email)!=null){
                 Et_emailsignup.setError("found Email");

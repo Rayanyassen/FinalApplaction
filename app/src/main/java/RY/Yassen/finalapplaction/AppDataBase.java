@@ -1,10 +1,13 @@
+package RY.Yassen.finalapplaction;
+
 import android.content.Context;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import Data.UsersTable.myusers;
+import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
+import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 
 /*
@@ -31,7 +34,7 @@ public abstract class AppDataBase extends RoomDatabase
      * يعيد كائن لعمليات جدول المستعملين
      * @return
      */
-    public abstract myUsersQuery getMyUserQuery();
+    public abstract MyUsersQuery getmyUserQuery();
 
     /**
      * بناء قاعدة البيانات واعادة كائن يؤشر عليها
