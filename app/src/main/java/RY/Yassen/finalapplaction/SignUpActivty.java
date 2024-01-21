@@ -10,8 +10,9 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import Data.AppDataBase;
-import Data.usersTable.myusers;
+import Data.UsersTable.myUsersQuery;
+import Data.UsersTable.myusers;
+
 
 public class SignUpActivty extends AppCompatActivity {
     private TextInputEditText Et_emailsignup;
@@ -118,5 +119,4 @@ public class SignUpActivty extends AppCompatActivity {
         finish();
     }
 
-}
 }
