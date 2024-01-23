@@ -42,7 +42,7 @@ public abstract class AppDataBase extends RoomDatabase
      * @return
      */
 
-    public abstract myPlayerQuery getmyPlayeruery();
+    public abstract myPlayerQuery getmyPlayerQuery();
 
     /**
      * بناء قاعدة البيانات واعادة كائن يؤشر عليها

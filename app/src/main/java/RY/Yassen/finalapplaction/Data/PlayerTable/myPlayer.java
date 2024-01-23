@@ -10,6 +10,16 @@ public class myPlayer {
     public String YourCity;// اسم المدينة
     public boolean AreyouinClub; // هل انت في فريق حالي
     public long StatisticPlayer; // احصائيات اللاعب
+    public long Profile;//الملف الشخصي
+
+
+    public long getProfile() {
+        return Profile;
+    }
+
+    public void setProfile(long profile) {
+        Profile = profile;
+    }
 
     public String getFirstName() {
         return FirstName;
@@ -54,11 +64,13 @@ public class myPlayer {
     @Override
     public String toString() {
         return "myPlayer{" +
-                "FirstName='" + FirstName + '\'' +
+                "username='" + username + '\'' +
+                ", FirstName='" + FirstName + '\'' +
                 ", LastName='" + LastName + '\'' +
                 ", YourCity='" + YourCity + '\'' +
                 ", AreyouinClub=" + AreyouinClub +
                 ", StatisticPlayer=" + StatisticPlayer +
+                ", Profile=" + Profile +
                 '}';
     }
 }
