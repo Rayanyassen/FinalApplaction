@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuitem) {
                 if (menuitem.getItemId() == R.id.itmupload) {
                     Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
-                    ;
                     Intent i = new Intent(MainActivity.this, UploadVideo.class);
                     startActivity(i);
                 }

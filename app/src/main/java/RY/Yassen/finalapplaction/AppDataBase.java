@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
@@ -35,6 +36,13 @@ public abstract class AppDataBase extends RoomDatabase
      * @return
      */
     public abstract MyUsersQuery getmyUserQuery();
+
+    /**
+     * يعيد كائن لعمليات جدول اللاعبين
+     * @return
+     */
+
+    public abstract myPlayerQuery getmyPlayeruery();
 
     /**
      * بناء قاعدة البيانات واعادة كائن يؤشر عليها
