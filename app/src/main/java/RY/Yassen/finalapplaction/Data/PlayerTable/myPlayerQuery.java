@@ -21,26 +21,26 @@ public interface myPlayerQuery {
 @Query("Select * FROM myPlayer Where username=:name ")
     List <myPlayer> getUsername(String name);
     /**
-     *  ادخال مهمات
-     * @param t  مجموعه مهمات
+     *  ادخال معلومات الشخصيه
+     * @param p  مجموعه معلومات
      */
     @Insert
-    void insertinfo(myPlayer...t); // ثلاثة نقاط تعني ادخال مجموعه
+    void insertinfo(myPlayer...p); // ثلاثة نقاط تعني ادخال مجموعه
 
     /**
-     * تعديل المعلومات
-     * @param tasks مجموعه لتعديل المهمات (التعديل حسب المفتاح الرئيسي)
+     * تعديل الملف الشخصي
+     * @param privateinfo مجموعه لتعديل المعلومات الشخصي (التعديل حسب المفتاح الرئيسي)
      */
     @Update
-    void Updateinfo(myPlayer... tasks);
+    void Updateinfo(myPlayer... privateinfo);
 
     /**
-     * حذف  المعلومه
-     * @param tasks حذف المعلومات (حسب المفتاح الرئيسي)
+     * حذف  المعلومه التي في الملف الشخصي
+     * @param privateinfo حذف المعلومات (حسب المفتاح الرئيسي)
      */
 
     @Delete
-    void deletTask(myPlayer... tasks);
+    void deleteinfo(myPlayer... privateinfo);
 
 
 
