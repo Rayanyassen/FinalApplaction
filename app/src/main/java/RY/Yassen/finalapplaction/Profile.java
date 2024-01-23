@@ -3,6 +3,7 @@ package RY.Yassen.finalapplaction;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,12 +20,14 @@ public class Profile extends AppCompatActivity {
     private TextInputEditText ET_LastName;
     private TextInputEditText ET_city;
     private TextInputEditText Et_phone;
+    private AutoCompleteTextView autoetProfile;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        autoetProfile=findViewById(R.id.autoEtProfile);
         btnsavesignup = findViewById(R.id.btnsavesignup);
         btnCancelSignup = findViewById(R.id.btnCancelSignup);
         btn_statistic = findViewById(R.id.btn_statistic);
@@ -32,8 +35,6 @@ public class Profile extends AppCompatActivity {
         ET_LastName = findViewById(R.id.ET_LastName);
         ET_city = findViewById(R.id.ET_city);
         Et_phone = findViewById(R.id.Et_phone);
-
-
     }
 
     private void checkEmailPassw() {
@@ -80,9 +81,11 @@ public class Profile extends AppCompatActivity {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             AppDataBase db = AppDataBase.getDB(getApplicationContext());
             myPlayerQuery playerQuery = db.getmyPlayerQuery();
+            if (playerQuery.checkProfile(autoetProfile) == null) {
 
+
+            }
 
         }
-
     }
 }

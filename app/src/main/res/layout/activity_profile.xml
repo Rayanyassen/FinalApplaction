@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Sign_up">
+    tools:context=".Profile">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,6 +87,13 @@
                 android:layout_margin="8dp"
                 android:hint="phone number" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <AutoCompleteTextView
+            android:id="@+id/autoEtProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

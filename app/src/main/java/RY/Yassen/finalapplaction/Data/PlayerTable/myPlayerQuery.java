@@ -1,5 +1,7 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
 
+import android.widget.AutoCompleteTextView;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -41,6 +43,14 @@ public interface myPlayerQuery {
 
     @Delete
     void deleteinfo(myPlayer... privateinfo);
+
+    /**
+     * يفحص اذا كان هناك ملف شخصي اخر مشابه له
+     * @param autoetPro
+     * @return
+     */
+    @Query("SELECT * FROM myPlayer WHERE Profile=:autoetPro")
+    myPlayer checkProfile(AutoCompleteTextView autoetPro);
 
 
 
