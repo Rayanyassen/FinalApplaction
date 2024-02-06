@@ -30,10 +30,10 @@ public class SignUpActivty extends AppCompatActivity {
         Et_emailsignup = findViewById(R.id.ET_FirstName);
         ETpassword = findViewById(R.id.ET_LastName);
         ETrepassword = findViewById(R.id.ET_city);
-        ETname = findViewById(R.id.ETname);
+        ETname = findViewById(R.id.Et_phone);
         ETphone = findViewById(R.id.ETphone);
         btnsavesignup = findViewById(R.id.btnsavesignup);
-        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel = findViewById(R.id.btnCancelSignup);
     }
     private void checkEmailPassw() {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة

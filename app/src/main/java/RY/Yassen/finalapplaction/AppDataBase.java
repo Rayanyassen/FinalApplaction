@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayer;
 import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
@@ -17,7 +18,7 @@ version
 عند تغيير اي شي يخص جدول او جداول علينا تغيير رقم الاصدار
 ليتم بناء قاعدة البيانات من جديد
 */
-@Database(entities = {myusers.class},version =1)
+@Database(entities = {myusers.class , myPlayer.class},version =1)
 /**
  * الفئة المسؤولة عن بناء قاعدة البايانات بكل جداولها
  * وتوفر لنا كائن للتعامل مع قاعدة البيانات
@@ -42,7 +43,7 @@ public abstract class AppDataBase extends RoomDatabase
      * @return
      */
 
-    public abstract myPlayerQuery getmyPlayeruery();
+    public abstract myPlayerQuery getmyPlayerQuery();
 
     /**
      * بناء قاعدة البيانات واعادة كائن يؤشر عليها
