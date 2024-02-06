@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "779990820069",
+    "project_id": "finalapplaction",
+    "storage_bucket": "finalapplaction.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:779990820069:android:e0f53ad3ed1e6c42cc600c",
+        "android_client_info": {
+          "package_name": "RY.Yassen.finalapplaction"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiI7N-mv-2P0yd6vRqigOqjQQZsdSw4iY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
