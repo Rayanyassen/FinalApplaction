@@ -1,7 +1,5 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
 
-import android.widget.AutoCompleteTextView;
-
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,21 +18,21 @@ public interface myPlayerQuery {
      *اعاده جميع معطيات جدول اللاعبين
      * @return *اعاده قائمه من المستخدمين
      */
-@Query("Select * FROM myPlayer Where username=:name ")
-    List <myPlayer> getUsername(String name);
+@Query("Select * FROM MyPlayer Where username=:name ")
+    List <MyPlayer> getUsername(String name);
     /**
      *  ادخال معلومات الشخصيه
      * @param p  مجموعه معلومات
      */
     @Insert
-    void insertinfo(myPlayer...p); // ثلاثة نقاط تعني ادخال مجموعه
+    void insertinfo(MyPlayer...p); // ثلاثة نقاط تعني ادخال مجموعه
 
     /**
      * تعديل الملف الشخصي
      * @param privateinfo مجموعه لتعديل المعلومات الشخصي (التعديل حسب المفتاح الرئيسي)
      */
     @Update
-    void Updateinfo(myPlayer... privateinfo);
+    void Updateinfo(MyPlayer... privateinfo);
 
     /**
      * حذف  المعلومه التي في الملف الشخصي
@@ -42,15 +40,15 @@ public interface myPlayerQuery {
      */
 
     @Delete
-    void deleteinfo(myPlayer... privateinfo);
+    void deleteinfo(MyPlayer... privateinfo);
 
     /**
      * يفحص اذا كان هناك ملف شخصي اخر مشابه له
      * @param autoetPro
      * @return
      */
-//    @Query("SELECT * FROM myPlayer WHERE Profile=:autoetPro")
-//    myPlayer checkProfile(AutoCompleteTextView autoetPro);
+//    @Query("SELECT * FROM MyPlayer WHERE Profile=:autoetPro")
+//    MyPlayer checkProfile(AutoCompleteTextView autoetPro);
 
 
 

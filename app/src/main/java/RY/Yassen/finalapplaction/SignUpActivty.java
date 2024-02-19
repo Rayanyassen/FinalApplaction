@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
@@ -73,7 +74,7 @@ public class SignUpActivty extends AppCompatActivity {
         }
 
 
-        if (phone.length() > 10 || phone.contains(" ") == true) {
+        if (phone.length() > 10 && phone.length() < 10 || phone.contains(" ") == true) {
             isAllok = false;
             ETphone.setError("phone number is 10 numbers");
 
@@ -90,7 +91,6 @@ public class SignUpActivty extends AppCompatActivity {
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignUpActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
                         finish();
-
                     } else {
                         Toast.makeText(SignUpActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
                         Et_emailsignup.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
@@ -98,6 +98,38 @@ public class SignUpActivty extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void SaveUser_FB(String email, String name, String phone,String passw){
+        //مؤشر لقاعدة البيانات
+        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
+        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        myusers users=new myusers();
+        users.setEmail(email);
+        users.setFullName(name);
+        users.setPassw(phone);
+        users.setPassw(passw);
+        users.setId(uid);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
+        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+        db.collection("MyUsers").document(uid).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+            //داله معالجه الحدث
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                // هل تم تنفيذ المطلوب بنجاح
+                if (task.isSuccessful()) {
+                    Toast.makeText(SignUpActivty.this, "Succeeded to Add User", Toast.LENGTH_SHORT).show();
+                    finish();
+                    SaveUser_FB( email,  name,  phone, passw);
+
+                }
+                else {
+                    Toast.makeText(SignUpActivty.this,"Failed to Add User", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     public void onclickBTNSAVE(View V) {
         checkAndSignUP_FB();

@@ -1,5 +1,6 @@
 package RY.Yassen.finalapplaction;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -7,10 +8,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
-import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 
 public class Profile extends AppCompatActivity {
     private Button btnsavesignup;
@@ -37,7 +42,7 @@ public class Profile extends AppCompatActivity {
         Et_phone = findViewById(R.id.Et_phone);
     }
 
-    private void checkEmailPassw() {
+    private void checkProfile() {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة
         // استخراج النص اسمك الاول
         String Firstname = ET_FirstName.getText().toString();
@@ -82,7 +87,37 @@ public class Profile extends AppCompatActivity {
 
 
         }
-        
 
+
+    }
+    private void SaveProfile_FB(String username, String firstName, String lastName,String yourCity ,boolean areyouinClub ){
+        //مؤشر لقاعدة البيانات
+        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
+        String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        MyPlayer profiles=new MyPlayer();
+        profiles.setUsername(username);
+        profiles.setFirstName(firstName);
+        profiles.setLastName(lastName);
+        profiles.setYourCity(yourCity);
+        profiles.setAreyouinClub(areyouinClub);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
+        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+        db.collection("Profile").document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
+            //داله معالجه الحدث
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                // هل تم تنفيذ المطلوب بنجاح
+                if (task.isSuccessful()) {
+                        Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
+                    finish();
+                    SaveProfile_FB( username,  firstName,  lastName, yourCity , areyouinClub );
+                }
+                else {
+                    Toast.makeText(Profile.this,"Failed to Add Profile", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

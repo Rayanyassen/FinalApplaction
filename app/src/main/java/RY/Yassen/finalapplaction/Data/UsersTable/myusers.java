@@ -10,10 +10,11 @@ import androidx.room.PrimaryKey;
  */
 @Entity
 public class myusers {
-
+    @PrimaryKey(autoGenerate = true)
+    public long keYid;//رقم المهمه
     @ColumnInfo(name = "fullName")//اعطاء اسم جديد للعامود - الصفه في الجدول
-    public String Id;
     public String fullName;
+    public String Id;
     public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
     public String phone;
     public String passw;

@@ -1,10 +1,9 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class myPlayer {
+public class MyPlayer {
     @PrimaryKey(autoGenerate = true)
     long id;
     public String username;// اسم المستخدم
@@ -16,12 +15,20 @@ public class myPlayer {
     public long Profile;//الملف الشخصي
 
 
-    public long getProfile() {
-        return Profile;
+    public long getId() {
+        return id;
     }
 
-    public void setProfile(long profile) {
-        Profile = profile;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFirstName() {
@@ -64,10 +71,19 @@ public class myPlayer {
         StatisticPlayer = statisticPlayer;
     }
 
+    public long getProfile() {
+        return Profile;
+    }
+
+    public void setProfile(long profile) {
+        Profile = profile;
+    }
+
     @Override
     public String toString() {
-        return "myPlayer{" +
-                "username='" + username + '\'' +
+        return "MyPlayer{" +
+                ", id=" + id +
+                ", username='" + username + '\'' +
                 ", FirstName='" + FirstName + '\'' +
                 ", LastName='" + LastName + '\'' +
                 ", YourCity='" + YourCity + '\'' +

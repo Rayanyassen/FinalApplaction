@@ -80,21 +80,7 @@ public class SignInActivty extends AppCompatActivity {
 
     }
 
-    private void SaveUser_FB(String email, String name, String phone,String passw){
-        //مؤشر لقاعدة البيانات
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
-        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
-        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //بناء الكائن الذي سيتم حفظه
-        myusers users=new myusers();
-        users.setEmail(email);
-        users.setFullName(name);
-        users.setPassw(phone);
-        users.setPassw(passw);
-        users.setId(uid);
-        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
-        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-    }
+
     // داله onclick ل sign in
     public void onclickbtn_signIn(View v)
     {
