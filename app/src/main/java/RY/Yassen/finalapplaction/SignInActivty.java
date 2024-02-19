@@ -1,5 +1,6 @@
 package RY.Yassen.finalapplaction;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,7 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
@@ -28,18 +34,8 @@ public class SignInActivty extends AppCompatActivity {
         btn_SignUp=findViewById(R.id.btn_SignUp);
         btn_signIn=findViewById(R.id.btn_signIn);
     }
-
-    public void onclickbtn_SignUp(View v)
-    {
-        Intent i= new Intent(SignInActivty.this, SignUpActivty.class);
-        startActivity(i);
-        //to close current activity
-        finish();
-    }
-
-
-
-    private void checkEmailPassw() {
+    // داله تفحص اذا الحقول صحيحه وسليمه
+    private void checkEmailPassw_FB() {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة
         //استخراج النص من حقل الايميل
         String email = Et_E_mail.getText().toString();
@@ -61,32 +57,60 @@ public class SignInActivty extends AppCompatActivity {
             Et_Password.setError("Wrong Password");
 
         }
+        //يفحص اذا الايميل و الباسورد موجود مسبقا
         if(isAllok){
+            //עצם לביצוע רישום كائن لعملية التسجيل
+            FirebaseAuth auth=FirebaseAuth.getInstance();
+            //כניסה לחשבון בעזרת מיל ן סיסמא
+            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {//אם הפעולה הצליחה
+                        Toast.makeText(SignInActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
+                        finish();
 
-            //بناء قاعدة وارجاع مؤشر عليها1
-            AppDataBase db=AppDataBase.getDB(getApplicationContext());
-            //مؤشر لكائن عمليات الجدول2
-            MyUsersQuery usersQuery=db.getmyUserQuery();
-            //استدعاء العملية التي تنفذ الاستعلام الذي يفحص البريد و كلمة المرور ويعيد كائنا ان كان موجودا او ان لم يكن موجود null
-            myusers myUser=usersQuery.checkEmailPassw(email,password);
-            if(myUser==null)//هل لا يوجد كائن حسب الايميل والباسورد
-            {
-                Toast.makeText(this,"Wrong Email or Password ", Toast.LENGTH_LONG).show();
-
-            }
-            else
-            {//ان كان هنالك حساب الايميل و الباسورد ننتقل الى الشاشه الرئيسية
-                Toast.makeText(this,"All Ok" , Toast.LENGTH_SHORT).show();
-                Intent i=new Intent(SignInActivty.this,Profile.class);
-                startActivity(i);
-                finish();
-            }
+                    } else {
+                        Toast.makeText(SignInActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
+                        Et_E_mail.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
+                    }
+                }
+            });
         }
+
+
     }
+
+    private void SaveUser_FB(String email, String name, String phone,String passw){
+        //مؤشر لقاعدة البيانات
+        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
+        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        myusers users=new myusers();
+        users.setEmail(email);
+        users.setFullName(name);
+        users.setPassw(phone);
+        users.setPassw(passw);
+        users.setId(uid);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
+        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+    }
+    // داله onclick ل sign in
     public void onclickbtn_signIn(View v)
     {
-        checkEmailPassw();
+        checkEmailPassw_FB();
+        Intent i = new Intent(SignInActivty.this, MainActivity.class);
+        startActivity(i);
+        //to close current activity
+        finish();
+    }
+    // داله onclick ل sign up
 
-
+    public void onclickbtn_SignUp(View v)
+    {
+        Intent i= new Intent(SignInActivty.this, SignUpActivty.class);
+        startActivity(i);
+        //to close current activity
+        finish();
     }
 }

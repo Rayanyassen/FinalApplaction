@@ -1,10 +1,12 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
 public class myPlayer {
     @PrimaryKey(autoGenerate = true)
+    long id;
     public String username;// اسم المستخدم
     public String FirstName;// اسم الاول للاعب
     public String LastName; // اسم الاخير للاعب

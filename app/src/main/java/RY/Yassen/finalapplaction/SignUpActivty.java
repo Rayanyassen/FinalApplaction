@@ -1,5 +1,6 @@
 package RY.Yassen.finalapplaction;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
@@ -35,7 +39,10 @@ public class SignUpActivty extends AppCompatActivity {
         btnsavesignup = findViewById(R.id.btnsavesignup);
         btnCancel = findViewById(R.id.btnCancelSignup);
     }
-    private void checkEmailPassw() {
+// داله تفحص اذاالحقول سليمه
+    public void checkAndSignUP_FB() {
+
+
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة
         //استخراج النص من حقل الايميل
         String email = Et_emailsignup.getText().toString();
@@ -71,48 +78,38 @@ public class SignUpActivty extends AppCompatActivity {
             ETphone.setError("phone number is 10 numbers");
 
         }
+        //تفحص اذا تسجيل الدخول كان ناجحا ام لا
+        if(isAllok){
 
+            // עצם לביצוע רישום كائن لعملية التسجيل
+            FirebaseAuth auth=FirebaseAuth.getInstance();
+            // יצירת חשבון בעזרת  מיל וסיסמא
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {//הפרמטר מכיל מהרשמת על תוצאת הבקשה לרישום
+                    if (task.isSuccessful()) {//אם הפעולה הצליחה
+                        Toast.makeText(SignUpActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
+                        finish();
 
-        if (isAllok) {
-            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
-            AppDataBase db = AppDataBase.getDB(getApplicationContext());
-            MyUsersQuery usersQuery=db.getmyUserQuery();
-            //فحص هل البريد الالكتروني موجود من قبل اي تم تسجيل من قبل
-            if(usersQuery.checkEmail(email)!=null){
-                Et_emailsignup.setError("found Email");
-            }
-            else// ان لم يكن موجودا نقوم ببناء كاءن للمستعمل وادخاله في الجدول Myuser المستعملين
-            {
-                // بناء الكائن
-                myusers myuser= new myusers();
-                //تحديد قيم الصفات بالقيم التي استخرجناها
-                myuser.email=email;
-                myuser.fullName=name;
-                myuser.phone=phone;
-                myuser.passw=password;
-                //اضافه الكائن الجديد للجدول
-                usersQuery.insert(myuser);
-                //اغلاق الشاشه الحالية
-                finish();
-            }
-
-
-
+                    } else {
+                        Toast.makeText(SignUpActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
+                        Et_emailsignup.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
+                    }
+                }
+            });
         }
-
     }
-    public void onclickBTNSAVE(View V)
-    {
-        checkEmailPassw();
+    public void onclickBTNSAVE(View V) {
+        checkAndSignUP_FB();
         Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
         startActivity(i);
         //to close current activity
         finish();
 
 
-
     }
-    public void onclickBTNCancel(View v){
+
+    public void onclickBTNCancel(View v) {
         Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
         startActivity(i);
         //to close current activity

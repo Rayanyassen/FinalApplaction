@@ -9,7 +9,7 @@
     tools:context=".SplashScreen">
 
     <TextView
-        android:id="@+id/ET_Text"
+        android:id="@+id/ET_Wlcm"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="144dp"

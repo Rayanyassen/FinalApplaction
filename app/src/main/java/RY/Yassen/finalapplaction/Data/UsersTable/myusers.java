@@ -10,21 +10,20 @@ import androidx.room.PrimaryKey;
  */
 @Entity
 public class myusers {
-    @PrimaryKey(autoGenerate = true)//تحديد الصفه كمفتاح رئيسي والذي ينتج بشكل تلقائي
-    public long keyid;
-    @ColumnInfo(name = "fullName")//اعطاء اسم جديد للعامود - الصفه في الجدول
 
+    @ColumnInfo(name = "fullName")//اعطاء اسم جديد للعامود - الصفه في الجدول
+    public String Id;
     public String fullName;
     public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
     public String phone;
     public String passw;
 
-    public long getKeyid() {
-        return keyid;
+    public String getId() {
+        return Id;
     }
 
-    public void setKeyid(long keyid) {
-        this.keyid = keyid;
+    public void setId(String id) {
+        Id = id;
     }
 
     public String getFullName() {
@@ -61,13 +60,12 @@ public class myusers {
 
     @Override
     public String toString() {
-        return "MyUser{" +
-                "keyid=" + keyid +
+        return "myusers{" +
+                "Id='" + Id + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", passw='" + passw + '\'' +
                 '}';
     }
-
 }

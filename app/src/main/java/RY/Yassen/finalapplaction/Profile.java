@@ -65,15 +65,13 @@ public class Profile extends AppCompatActivity {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
-            ET_city.setError("Wrong LastName");
+            ET_city.setError("Wrong CityName");
         }
-
-
-        if (phone.length() > 10 || phone.contains(" ") == false) {
+        if (phone.length() > 10 && phone.length() < 10 || phone.contains(" ") == false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
-            ET_city.setError("Wrong LastName");
+            Et_phone.setError("Wrong phone number");
 
 
         }
@@ -81,11 +79,10 @@ public class Profile extends AppCompatActivity {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             AppDataBase db = AppDataBase.getDB(getApplicationContext());
             myPlayerQuery playerQuery = db.getmyPlayerQuery();
-            if (playerQuery.checkProfile(autoetProfile) == null) {
 
-
-            }
 
         }
+        
+
     }
 }

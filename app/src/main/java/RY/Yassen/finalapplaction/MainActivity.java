@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -18,20 +20,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void showPopUpMenu(View v) {
-        //popup menu بناء قائمه
-        PopupMenu popup = new PopupMenu(this, v);//الكائن الذي سبب فتح القائمه v
-        //ملف القائمه
-        popup.inflate(R.menu.popup_menu);
-        //اضافه معالج حدث لاختيار عنصر من القائمه
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuitem) {
-                if (menuitem.getItemId() == R.id.itmupload) {
-                    Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(MainActivity.this, UploadVideo.class);
-                    startActivity(i);
-                }
+    @Override//بناء القائمه
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.itmsetting) {
+            Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MainActivity.this, SettingActivty.class);
+            startActivity(i);
+        }
+        if (item.getItemId() == R.id.itmLogout) {
+            Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+            finish();
+        }
+        return true;
+    }
+        public void showPopUpMenu (View v){
+            //popup menu بناء قائمه
+            PopupMenu popup = new PopupMenu(this, v);//الكائن الذي سبب فتح القائمه v
+            //ملف القائمه
+            popup.inflate(R.menu.popup_menu);
+            //اضافه معالج حدث لاختيار عنصر من القائمه
+            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuitem) {
+                    if (menuitem.getItemId() == R.id.itmupload) {
+                        Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, UploadVideo.class);
+                        startActivity(i);
+                    }
 //                if (menuitem.getItemId()==R.id.itmedit){
 //                    Toast.makeText(MainActivity.this,"Delete",Toast.LENGTH_SHORT).show();
 //                    MainActivity db= MainActivity.getDB(MainActivity2.this);
@@ -40,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
 //                    initiAlllistView();
 //                    initSubjectSpnr();
 //                }
-                if (menuitem.getItemId() == R.id.itmedit) {
-                    Toast.makeText(MainActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                    if (menuitem.getItemId() == R.id.itmedit) {
+                        Toast.makeText(MainActivity.this, "Edit", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
-        popup.show();
+            });
+            popup.show();
+        }
     }
-}

@@ -49,8 +49,9 @@ public interface myPlayerQuery {
      * @param autoetPro
      * @return
      */
-    @Query("SELECT * FROM myPlayer WHERE Profile=:autoetPro")
-    myPlayer checkProfile(AutoCompleteTextView autoetPro);
+//    @Query("SELECT * FROM myPlayer WHERE Profile=:autoetPro")
+//    myPlayer checkProfile(AutoCompleteTextView autoetPro);
+
 
 
 
