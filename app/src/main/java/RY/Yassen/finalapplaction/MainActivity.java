@@ -30,13 +30,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (item.getItemId() == R.id.itmsetting) {
-            Toast.makeText(this, "Setting", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(MainActivity.this, SettingActivty.class);
             startActivity(i);
         }
         if (item.getItemId() == R.id.itmLogout) {
-            Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
             FirebaseAuth.getInstance().signOut();
+            finish();
+        }
+        if (item.getItemId() == R.id.itmDirectMessage) {
+            Intent i = new Intent(MainActivity.this, SettingActivty.class);
             finish();
         }
         return true;
@@ -54,17 +56,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(MainActivity.this, UploadVideo.class);
                         startActivity(i);
-                    }
-//                if (menuitem.getItemId()==R.id.itmedit){
-//                    Toast.makeText(MainActivity.this,"Delete",Toast.LENGTH_SHORT).show();
-//                    MainActivity db= MainActivity.getDB(MainActivity2.this);
-//                    MyTasksQuery myTasksQuery=db.getMyTaskQuery();
-//                    myTasksQuery.deletTask(menuitem.getItemId());
-//                    initiAlllistView();
-//                    initSubjectSpnr();
-//                }
-                    if (menuitem.getItemId() == R.id.itmedit) {
-                        Toast.makeText(MainActivity.this, "Edit", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }

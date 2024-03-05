@@ -3,7 +3,9 @@ package RY.Yassen.finalapplaction;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,7 +22,6 @@ import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
 public class Profile extends AppCompatActivity {
     private Button btnsavesignup;
     private Button btnCancelSignup;
-    private Button btn_statistic;
     private TextInputEditText ET_FirstName;
     private TextInputEditText ET_LastName;
     private TextInputEditText ET_city;
@@ -32,10 +33,9 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        autoetProfile=findViewById(R.id.autoEtProfile);
+        autoetProfile = findViewById(R.id.autoEtProfile);
         btnsavesignup = findViewById(R.id.btnsavesignup);
         btnCancelSignup = findViewById(R.id.btnCancelSignup);
-        btn_statistic = findViewById(R.id.btn_statistic);
         ET_FirstName = findViewById(R.id.ET_FirstName);
         ET_LastName = findViewById(R.id.ET_LastName);
         ET_city = findViewById(R.id.ET_city);
@@ -80,23 +80,17 @@ public class Profile extends AppCompatActivity {
 
 
         }
-        if (isAllok) {
-            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
-            AppDataBase db = AppDataBase.getDB(getApplicationContext());
-            myPlayerQuery playerQuery = db.getmyPlayerQuery();
-
-
-        }
-
 
     }
-    private void SaveProfile_FB(String username, String firstName, String lastName,String yourCity ,boolean areyouinClub ){
+
+
+    private void SaveProfile_FB(String username, String firstName, String lastName, String yourCity, boolean areyouinClub) {
         //مؤشر لقاعدة البيانات
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
-        String uid= FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         //بناء الكائن الذي سيتم حفظه
-        MyPlayer profiles=new MyPlayer();
+        MyPlayer profiles = new MyPlayer();
         profiles.setUsername(username);
         profiles.setFirstName(firstName);
         profiles.setLastName(lastName);
@@ -110,14 +104,29 @@ public class Profile extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 // هل تم تنفيذ المطلوب بنجاح
                 if (task.isSuccessful()) {
-                        Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
                     finish();
-                    SaveProfile_FB( username,  firstName,  lastName, yourCity , areyouinClub );
-                }
-                else {
-                    Toast.makeText(Profile.this,"Failed to Add Profile", Toast.LENGTH_SHORT).show();
+                    SaveProfile_FB(username, firstName, lastName, yourCity, areyouinClub);
+                } else {
+                    Toast.makeText(Profile.this, "Failed to Add Profile", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    public void onclickBTNcheckProfile(View V) {
+        checkProfile();
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        startActivity(i);
+        //to close current activity
+        finish();
+    }
+
+    public void onclickBTNcancel(View V) {
+        checkProfile();
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        startActivity(i);
+        //to close current activity
+        finish();
     }
 }

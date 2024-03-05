@@ -6,9 +6,6 @@
         android:id="@+id/itmupload"
         android:title="Upload Video" />
     <item
-        android:id="@+id/itmedit"
-        android:title="Edit Vedio" />
-    <item
         android:id="@+id/itmhistory"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="History"

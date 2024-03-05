@@ -16,7 +16,7 @@ public class myusers {
     public String fullName;
     public String Id;
     public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
-    public String phone;
+    public String phone;//
     public String passw;
 
     public String getId() {

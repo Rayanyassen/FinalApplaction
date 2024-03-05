@@ -11,7 +11,6 @@ public class MyPlayer {
     public String LastName; // اسم الاخير للاعب
     public String YourCity;// اسم المدينة
     public boolean AreyouinClub; // هل انت في فريق حالي
-    public long StatisticPlayer; // احصائيات اللاعب
     public long Profile;//الملف الشخصي
 
 
@@ -63,14 +62,6 @@ public class MyPlayer {
         AreyouinClub = areyouinClub;
     }
 
-    public long getStatisticPlayer() {
-        return StatisticPlayer;
-    }
-
-    public void setStatisticPlayer(long statisticPlayer) {
-        StatisticPlayer = statisticPlayer;
-    }
-
     public long getProfile() {
         return Profile;
     }
@@ -88,7 +79,6 @@ public class MyPlayer {
                 ", LastName='" + LastName + '\'' +
                 ", YourCity='" + YourCity + '\'' +
                 ", AreyouinClub=" + AreyouinClub +
-                ", StatisticPlayer=" + StatisticPlayer +
                 ", Profile=" + Profile +
                 '}';
     }

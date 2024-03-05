@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
-                android:onClick="onclickBTNSAVE"
+                android:onClick="onclickBTNcheckProfile"
                 android:text="Save"
                 app:cornerRadius="20dp" />
 
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:onClick="onclickBTNCancel"
+                android:onClick="onclickBTNcancel"
                 android:text="Cancel"
                 app:cornerRadius="20dp" />
 
@@ -98,12 +98,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
-        <Button
-            android:id="@+id/btn_statistic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Statistic Player" />
 
     </LinearLayout>
 

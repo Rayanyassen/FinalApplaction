@@ -42,11 +42,11 @@ public interface myPlayerQuery {
     @Delete
     void deleteinfo(MyPlayer... privateinfo);
 
-    /**
-     * يفحص اذا كان هناك ملف شخصي اخر مشابه له
-     * @param autoetPro
-     * @return
-     */
+//    /**
+//     * يفحص اذا كان هناك ملف شخصي اخر مشابه له
+//     * @param autoetPro
+//     * @return
+//     */
 //    @Query("SELECT * FROM MyPlayer WHERE Profile=:autoetPro")
 //    MyPlayer checkProfile(AutoCompleteTextView autoetPro);
 
