@@ -26,6 +26,8 @@ public class Profile extends AppCompatActivity {
     private TextInputEditText ET_LastName;
     private TextInputEditText ET_city;
     private TextInputEditText Et_phone;
+    private TextInputEditText ET_Username;
+    private TextInputEditText ET_RUINCLUB;
     private AutoCompleteTextView autoetProfile;
 
 
@@ -40,6 +42,9 @@ public class Profile extends AppCompatActivity {
         ET_LastName = findViewById(R.id.ET_LastName);
         ET_city = findViewById(R.id.ET_city);
         Et_phone = findViewById(R.id.Et_phone);
+        ET_Username=findViewById(R.id.ET_Username);
+        ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
+
     }
 
     private void checkProfile() {
@@ -52,7 +57,20 @@ public class Profile extends AppCompatActivity {
         String Cityname = ET_city.getText().toString();
         // استخراج نص من رقم الهاتف
         String phone = Et_phone.getText().toString();
-        //فحص الايمل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
+        // استخراج اسم المستخدم
+        String username= ET_Username.getText().toString();
+        //استخراج هل انت موجود في فريق حالي ام لا
+        boolean AreyouinClub=true;
+
+        //فحص الاسم ان كان طوله اقل من حرفين او  يحوي فراغ فهو خطأ
+        if (username.length() < 2 || username.contains(" ") == false) {
+            //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
+            isAllok = false;
+            // عرض ملاحظه خطا على الشاشه داخل حقل  الملف الشخصي
+            ET_Username.setError("Wrong username");
+
+        }
+        //فحص الاسم ان كان طوله اقل من 6 او  يحوي فراغ فهو خطأ
         if (Firstname.length() > 6 || Firstname.contains(" ") == false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
@@ -60,7 +78,8 @@ public class Profile extends AppCompatActivity {
             ET_FirstName.setError("Wrong FirstName");
 
         }
-        if (Lastname.length() > 10 || Lastname.contains(" ") == false) {
+        //فحص الاسم ان كان طوله اقل من 7 او  يحوي فراغ فهو خطأ
+        if (Lastname.length() > 7 || Lastname.contains(" ") == false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
@@ -72,12 +91,22 @@ public class Profile extends AppCompatActivity {
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             ET_city.setError("Wrong CityName");
         }
-        if (phone.length() > 10 && phone.length() < 10 || phone.contains(" ") == false) {
+        if (phone.length() != 10 || phone.contains(" ") == false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             Et_phone.setError("Wrong phone number");
 
+        }
+        if (AreyouinClub==true) {
+            //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
+            isAllok = true;
+
+        }
+
+        if(isAllok){
+            //استعمال داله Saveprofile
+            SaveProfile_FB(username,Firstname,Lastname,Cityname,AreyouinClub);
 
         }
 
@@ -106,7 +135,7 @@ public class Profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
                     finish();
-                    SaveProfile_FB(username, firstName, lastName, yourCity, areyouinClub);
+                   // SaveProfile_FB(username, firstName, lastName, yourCity, areyouinClub);
                 } else {
                     Toast.makeText(Profile.this, "Failed to Add Profile", Toast.LENGTH_SHORT).show();
                 }

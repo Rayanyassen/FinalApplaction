@@ -22,7 +22,7 @@ private TextView ET_Wlcm;
         //بناء قاعدة بيانات وارجاع مؤشر عليها 1
 
         Handler h=new Handler();
-        Runnable r=new Runnable() {
+        Runnable r= new Runnable() {
 
             public void run()
             {

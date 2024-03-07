@@ -42,6 +42,18 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ET_Username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Username" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ET_FirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,6 +98,18 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:hint="phone number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ET_RUINCLUB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Are you in club" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <AutoCompleteTextView
