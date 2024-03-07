@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.itmLogout) {
             FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(MainActivity.this, SignInActivty.class);
             finish();
         }
         if (item.getItemId() == R.id.itmDirectMessage) {
-            Intent i = new Intent(MainActivity.this, SettingActivty.class);
+            Intent i = new Intent(MainActivity.this, Message.class);
             finish();
         }
         return true;

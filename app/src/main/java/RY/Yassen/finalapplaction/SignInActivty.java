@@ -85,7 +85,7 @@ public class SignInActivty extends AppCompatActivity {
     public void onclickbtn_signIn(View v)
     {
         checkEmailPassw_FB();
-        Intent i = new Intent(SignInActivty.this, MainActivity.class);
+        Intent i= new Intent(SignInActivty.this, Profile.class);
         startActivity(i);
         //to close current activity
         finish();

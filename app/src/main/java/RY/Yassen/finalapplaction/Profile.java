@@ -135,9 +135,10 @@ public class Profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
                     finish();
-                   // SaveProfile_FB(username, firstName, lastName, yourCity, areyouinClub);
+
                 } else {
                     Toast.makeText(Profile.this, "Failed to Add Profile", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -145,14 +146,9 @@ public class Profile extends AppCompatActivity {
 
     public void onclickBTNcheckProfile(View V) {
         checkProfile();
-        Intent i = new Intent(Profile.this, MainActivity.class);
-        startActivity(i);
-        //to close current activity
-        finish();
     }
 
     public void onclickBTNcancel(View V) {
-        checkProfile();
         Intent i = new Intent(Profile.this, MainActivity.class);
         startActivity(i);
         //to close current activity

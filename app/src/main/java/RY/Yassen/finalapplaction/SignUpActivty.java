@@ -74,7 +74,7 @@ public class SignUpActivty extends AppCompatActivity {
         }
 
 
-        if (phone.length() > 10 && phone.length() < 10 || phone.contains(" ") == true) {
+        if (phone.length() != 10 || phone.contains(" ") == true) {
             isAllok = false;
             ETphone.setError("phone number is 10 numbers");
 
@@ -133,10 +133,6 @@ public class SignUpActivty extends AppCompatActivity {
     }
     public void onclickBTNSAVE(View V) {
         checkAndSignUP_FB();
-        Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
-        startActivity(i);
-        //to close current activity
-        finish();
 
 
     }
