@@ -135,8 +135,7 @@ public class Profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
                     finish();
-                    Intent i = new Intent(Profile.this, MainActivity.class);
-                    startActivity(i);
+
 
 
 
@@ -150,6 +149,8 @@ public class Profile extends AppCompatActivity {
 
     public void onclickBTNcheckProfile(View V) {
         checkProfile();
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        startActivity(i);
     }
 
     public void onclickBTNcancel(View V) {

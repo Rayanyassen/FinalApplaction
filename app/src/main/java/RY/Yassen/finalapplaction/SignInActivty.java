@@ -67,11 +67,10 @@ public class SignInActivty extends AppCompatActivity {
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignInActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
                         finish();
-                        Intent i= new Intent(SignInActivty.this, Profile.class);
-                        startActivity(i);
 
 
-                    } else {
+                    }
+                    else {
                         Toast.makeText(SignInActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
                         Et_E_mail.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
                     }
@@ -87,6 +86,8 @@ public class SignInActivty extends AppCompatActivity {
     public void onclickbtn_signIn(View v)
     {
         checkEmailPassw_FB();
+        Intent i= new Intent(SignInActivty.this, Profile.class);
+        startActivity(i);
 
     }
     // داله onclick ل sign up
