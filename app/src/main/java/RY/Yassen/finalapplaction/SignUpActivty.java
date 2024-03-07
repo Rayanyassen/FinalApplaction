@@ -123,6 +123,8 @@ public class SignUpActivty extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivty.this, "Succeeded to Add User", Toast.LENGTH_SHORT).show();
                     finish();
+                    Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
+                    startActivity(i);
 
                 }
                 else {
@@ -133,8 +135,6 @@ public class SignUpActivty extends AppCompatActivity {
     }
     public void onclickBTNSAVE(View V) {
         checkAndSignUP_FB();
-
-
     }
 
     public void onclickBTNCancel(View v) {

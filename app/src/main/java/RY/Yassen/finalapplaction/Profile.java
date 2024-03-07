@@ -135,6 +135,10 @@ public class Profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(Profile.this, "Succeeded to Add profile", Toast.LENGTH_SHORT).show();
                     finish();
+                    Intent i = new Intent(Profile.this, MainActivity.class);
+                    startActivity(i);
+
+
 
                 } else {
                     Toast.makeText(Profile.this, "Failed to Add Profile", Toast.LENGTH_SHORT).show();

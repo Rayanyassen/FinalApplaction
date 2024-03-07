@@ -51,23 +51,25 @@ public class SignInActivty extends AppCompatActivity {
             Et_E_mail.setError("Wrong Email");
 
         }
-        if(password.length()< 8||password.contains(" ")==true)
-        {
-            isAllok=false;
+        if (password.length() < 8 || password.contains(" ") == true) {
+            isAllok = false;
             Et_Password.setError("Wrong Password");
 
         }
         //يفحص اذا الايميل و الباسورد موجود مسبقا
-        if(isAllok){
+        if (isAllok) {
             //עצם לביצוע רישום كائن لعملية التسجيل
-            FirebaseAuth auth=FirebaseAuth.getInstance();
+            FirebaseAuth auth = FirebaseAuth.getInstance();
             //כניסה לחשבון בעזרת מיל ן סיסמא
-            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignInActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
                         finish();
+                        Intent i= new Intent(SignInActivty.this, Profile.class);
+                        startActivity(i);
+
 
                     } else {
                         Toast.makeText(SignInActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
@@ -85,10 +87,7 @@ public class SignInActivty extends AppCompatActivity {
     public void onclickbtn_signIn(View v)
     {
         checkEmailPassw_FB();
-        Intent i= new Intent(SignInActivty.this, Profile.class);
-        startActivity(i);
-        //to close current activity
-        finish();
+
     }
     // داله onclick ل sign up
 
