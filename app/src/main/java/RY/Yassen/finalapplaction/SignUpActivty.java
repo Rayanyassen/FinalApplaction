@@ -23,8 +23,7 @@ public class SignUpActivty extends AppCompatActivity {
     private TextInputEditText Et_emailsignup;
     private TextInputEditText ETpassword;
     private TextInputEditText ETrepassword;
-    private TextInputEditText ETname;
-    private TextInputEditText ETphone;
+
     private Button btnsavesignup;
     private Button btnCancel;
 
@@ -35,8 +34,7 @@ public class SignUpActivty extends AppCompatActivity {
         Et_emailsignup = findViewById(R.id.ET_FirstName);
         ETpassword = findViewById(R.id.ET_LastName);
         ETrepassword = findViewById(R.id.ET_city);
-        ETname = findViewById(R.id.Et_phone);
-        ETphone = findViewById(R.id.ETphone);
+
         btnsavesignup = findViewById(R.id.btnsavesignup);
         btnCancel = findViewById(R.id.btnCancelSignup);
     }
@@ -51,10 +49,7 @@ public class SignUpActivty extends AppCompatActivity {
         String password = ETpassword.getText().toString();
         //استخراج نص اعادة كلمه المرور
         String repassword = ETrepassword.getText().toString();
-        // استخراج نص من رقم هاتف
-        String phone = ETphone.getText().toString();
-        //استخراج نص لأسمك
-        String name = ETname.getText().toString();
+
 
         //فحص الايمل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
         if (email.length() < 6 || email.contains("@") == false) {
@@ -74,11 +69,6 @@ public class SignUpActivty extends AppCompatActivity {
         }
 
 
-        if (phone.length() != 10 || phone.contains(" ") == true) {
-            isAllok = false;
-            ETphone.setError("phone number is 10 numbers");
-
-        }
         //تفحص اذا تسجيل الدخول كان ناجحا ام لا
         if(isAllok){
 
@@ -90,7 +80,7 @@ public class SignUpActivty extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {//הפרמטר מכיל מהרשמת על תוצאת הבקשה לרישום
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignUpActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-                        SaveUser_FB( email,  name,  phone, password);
+
                     } else {
                         Toast.makeText(SignUpActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
                         Et_emailsignup.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
@@ -100,36 +90,7 @@ public class SignUpActivty extends AppCompatActivity {
         }
     }
 
-    private void SaveUser_FB(String email, String name, String phone,String passw){
-        //مؤشر لقاعدة البيانات
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
-        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
-        String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //بناء الكائن الذي سيتم حفظه
-        myusers users=new myusers();
-        users.setEmail(email);
-        users.setFullName(name);
-        users.setPassw(phone);
-        users.setPassw(passw);
-        users.setId(uid);
-        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
-        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("MyUsers").document(uid).set(users).addOnCompleteListener(new OnCompleteListener<Void>() {
-            //داله معالجه الحدث
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                // هل تم تنفيذ المطلوب بنجاح
-                if (task.isSuccessful()) {
-                    Toast.makeText(SignUpActivty.this, "Succeeded to Add User", Toast.LENGTH_SHORT).show();
-                    finish();
 
-                }
-                else {
-                    Toast.makeText(SignUpActivty.this,"Failed to Add User", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
     public void onclickBTNSAVE(View V) {
         checkAndSignUP_FB();
 

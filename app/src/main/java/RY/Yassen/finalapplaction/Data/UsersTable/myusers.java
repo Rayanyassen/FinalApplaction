@@ -16,7 +16,6 @@ public class myusers {
     public String fullName;
     public String id;
     public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
-    public String phone;//
     public String passw;
 
     public long getKeYid() {
@@ -51,13 +50,6 @@ public class myusers {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public String getPassw() {
         return passw;
@@ -74,7 +66,6 @@ public class myusers {
                 ", fullName='" + fullName + '\'' +
                 ", id='" + id + '\'' +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
                 ", passw='" + passw + '\'' +
                 '}';
     }

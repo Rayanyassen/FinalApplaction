@@ -18,12 +18,22 @@
 
             <Button
                 android:id="@+id/btnsavesignup"
-                android:layout_width="match_parent"
+                android:layout_width="146dp"
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
                 android:onClick="onclickBTNcheckProfile"
                 android:text="Save"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="146dp"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:onClick="onclickBTNcheckProfile"
+                android:text="Cancel"
                 app:cornerRadius="20dp" />
 
         </LinearLayout>

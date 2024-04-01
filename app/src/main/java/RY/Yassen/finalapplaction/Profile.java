@@ -3,6 +3,7 @@ package RY.Yassen.finalapplaction;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -31,13 +32,13 @@ public class Profile extends AppCompatActivity {
     private AutoCompleteTextView autoetProfile;
 
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         autoetProfile = findViewById(R.id.autoEtProfile);
         btnsavesignup = findViewById(R.id.btnsavesignup);
-        btnCancelSignup = findViewById(R.id.btnCancelSignup);
+        btnCancelSignup= findViewById(R.id.btnCancel);
         ET_FirstName = findViewById(R.id.ET_FirstName);
         ET_LastName = findViewById(R.id.ET_LastName);
         ET_city = findViewById(R.id.ET_city);
@@ -85,7 +86,7 @@ public class Profile extends AppCompatActivity {
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             ET_LastName.setError("Wrong LastName");
         }
-        if (Cityname.length() > 10 || Cityname.contains(" ") == true) {
+        if (Cityname.length() > 4 || Cityname.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
@@ -106,14 +107,14 @@ public class Profile extends AppCompatActivity {
 
         if(isAllok){
             //استعمال داله Saveprofile
-            SaveProfile_FB(username,Firstname,Lastname,Cityname,AreyouinClub);
+            SaveProfile_FB(username,Firstname,Lastname,Cityname,AreyouinClub, phone);
 
         }
 
     }
 
 
-    private void SaveProfile_FB(String username, String firstName, String lastName, String yourCity, boolean areyouinClub) {
+    private void SaveProfile_FB(String username, String firstName, String lastName, String yourCity, boolean areyouinClub,String phone ) {
         //مؤشر لقاعدة البيانات
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
@@ -125,6 +126,7 @@ public class Profile extends AppCompatActivity {
         profiles.setLastName(lastName);
         profiles.setYourCity(yourCity);
         profiles.setAreyouinClub(areyouinClub);
+        profiles.setPhone(phone);
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
         // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
         db.collection("Profile").document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -149,8 +151,6 @@ public class Profile extends AppCompatActivity {
 
     public void onclickBTNcheckProfile(View V) {
         checkProfile();
-        Intent i = new Intent(Profile.this, MainActivity.class);
-        startActivity(i);
     }
 
     public void onclickBTNcancel(View V) {

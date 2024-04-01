@@ -10,6 +10,7 @@ public class MyPlayer {
     public String FirstName;// اسم الاول للاعب
     public String LastName; // اسم الاخير للاعب
     public String YourCity;// اسم المدينة
+    public String phone ;
     public boolean AreyouinClub; // هل انت في فريق حالي
     public long Profile;//الملف الشخصي
 
@@ -54,6 +55,14 @@ public class MyPlayer {
         YourCity = yourCity;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public boolean isAreyouinClub() {
         return AreyouinClub;
     }
@@ -73,11 +82,12 @@ public class MyPlayer {
     @Override
     public String toString() {
         return "MyPlayer{" +
-                ", id=" + id +
+                "id=" + id +
                 ", username='" + username + '\'' +
                 ", FirstName='" + FirstName + '\'' +
                 ", LastName='" + LastName + '\'' +
                 ", YourCity='" + YourCity + '\'' +
+                ", phone='" + phone + '\'' +
                 ", AreyouinClub=" + AreyouinClub +
                 ", Profile=" + Profile +
                 '}';
