@@ -26,15 +26,6 @@
                 android:text="Save"
                 app:cornerRadius="20dp" />
 
-            <Button
-                android:id="@+id/btnCancelSignup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onclickBTNcancel"
-                android:text="Cancel"
-                app:cornerRadius="20dp" />
-
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -58,7 +49,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="First name" />
+                android:hint="First name"
+                android:minHeight="48dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,7 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="Last name" />
+                android:hint="Last name"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -97,7 +90,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="phone number" />
+                android:hint="phone number"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -109,7 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="Are you in club" />
+                android:hint="Are you in club"
+                android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <AutoCompleteTextView

@@ -90,7 +90,6 @@ public class SignUpActivty extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {//הפרמטר מכיל מהרשמת על תוצאת הבקשה לרישום
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignUpActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-                        finish();
                         SaveUser_FB( email,  name,  phone, password);
                     } else {
                         Toast.makeText(SignUpActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
@@ -133,8 +132,7 @@ public class SignUpActivty extends AppCompatActivity {
     }
     public void onclickBTNSAVE(View V) {
         checkAndSignUP_FB();
-        Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
-        startActivity(i);
+
     }
 
     public void onclickBTNCancel(View v) {

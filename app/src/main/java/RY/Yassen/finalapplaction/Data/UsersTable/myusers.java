@@ -14,17 +14,17 @@ public class myusers {
     public long keYid;//رقم المهمه
     @ColumnInfo(name = "fullName")//اعطاء اسم جديد للعامود - الصفه في الجدول
     public String fullName;
-    public String Id;
+    public String id;
     public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
     public String phone;//
     public String passw;
 
-    public String getId() {
-        return Id;
+    public long getKeYid() {
+        return keYid;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setKeYid(long keYid) {
+        this.keYid = keYid;
     }
 
     public String getFullName() {
@@ -33,6 +33,14 @@ public class myusers {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -62,8 +70,9 @@ public class myusers {
     @Override
     public String toString() {
         return "myusers{" +
-                "Id='" + Id + '\'' +
+                "keYid=" + keYid +
                 ", fullName='" + fullName + '\'' +
+                ", id='" + id + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", passw='" + passw + '\'' +
