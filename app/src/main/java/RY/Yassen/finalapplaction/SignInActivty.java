@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
@@ -25,14 +28,22 @@ public class SignInActivty extends AppCompatActivity {
     private Button btn_SignUp;
     private Button btn_signIn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_activty);
+        //to do check also profile
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null )
+        {
+            Intent i= new Intent(SignInActivty.this, MainActivity.class);
+            startActivity(i);
+        }
         Et_E_mail=findViewById(R.id.Et_E_mail);
         Et_Password=findViewById(R.id.Et_Password);
         btn_SignUp=findViewById(R.id.btn_SignUp);
         btn_signIn=findViewById(R.id.btn_signIn);
+
     }
     // داله تفحص اذا الحقول صحيحه وسليمه
     private void checkEmailPassw_FB() {

@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +33,16 @@ public class Profile extends AppCompatActivity {
     private TextInputEditText ET_RUINCLUB;
     private AutoCompleteTextView autoetProfile;
 
+    //upload: 1 add Xml image view or button and upload button
+//upload: 2 add next fileds
+    private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
+    private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה לקבצים
+    private ImageButton imgBtnl;//כפתור/ לחצן לבחירת תמונה והצגתה
+    private Button btnUpload;// לחצן לביצוע העלאת התמונה
+    private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
+    private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
+
+
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +57,16 @@ public class Profile extends AppCompatActivity {
         Et_phone = findViewById(R.id.Et_phone);
         ET_Username=findViewById(R.id.ET_Username);
         ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
+        //upload: 3
+        imgBtnl=findViewById(R.id.imgBtn);
+        imgBtnl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
 
     }
 

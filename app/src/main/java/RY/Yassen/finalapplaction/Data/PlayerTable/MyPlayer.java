@@ -7,12 +7,12 @@ public class MyPlayer {
     @PrimaryKey(autoGenerate = true)
     long id;
     public String username;// اسم المستخدم
-    public String FirstName;// اسم الاول للاعب
-    public String LastName; // اسم الاخير للاعب
-    public String YourCity;// اسم المدينة
+    public String firstName;// اسم الاول للاعب
+    public String lastName; // اسم الاخير للاعب
+    public String yourCity;// اسم المدينة
     public String phone ;
-    public boolean AreyouinClub; // هل انت في فريق حالي
-    public long Profile;//الملف الشخصي
+    private boolean areyouinClub; // هل انت في فريق حالي
+    public long profile;//الملف الشخصي
 
 
     public long getId() {
@@ -32,27 +32,27 @@ public class MyPlayer {
     }
 
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
-        FirstName = firstName;
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 
     public String getYourCity() {
-        return YourCity;
+        return yourCity;
     }
 
     public void setYourCity(String yourCity) {
-        YourCity = yourCity;
+        this.yourCity = yourCity;
     }
 
     public String getPhone() {
@@ -64,19 +64,19 @@ public class MyPlayer {
     }
 
     public boolean isAreyouinClub() {
-        return AreyouinClub;
+        return areyouinClub;
     }
 
     public void setAreyouinClub(boolean areyouinClub) {
-        AreyouinClub = areyouinClub;
+        this.areyouinClub = areyouinClub;
     }
 
     public long getProfile() {
-        return Profile;
+        return profile;
     }
 
     public void setProfile(long profile) {
-        Profile = profile;
+        this.profile = profile;
     }
 
     @Override
@@ -84,12 +84,12 @@ public class MyPlayer {
         return "MyPlayer{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", FirstName='" + FirstName + '\'' +
-                ", LastName='" + LastName + '\'' +
-                ", YourCity='" + YourCity + '\'' +
+                ", FirstName='" + firstName + '\'' +
+                ", LastName='" + lastName + '\'' +
+                ", YourCity='" + yourCity + '\'' +
                 ", phone='" + phone + '\'' +
-                ", AreyouinClub=" + AreyouinClub +
-                ", Profile=" + Profile +
+                ", AreyouinClub=" + areyouinClub +
+                ", Profile=" + profile +
                 '}';
     }
 }

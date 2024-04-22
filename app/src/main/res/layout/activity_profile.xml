@@ -124,9 +124,18 @@
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center|center_horizontal"
+            app:srcCompat="@drawable/profile" />
+
+        <Button
+            android:id="@+id/imgBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
 
     </LinearLayout>
 
