@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
 
                 android:layout_weight="1"
-                android:onClick="onclickBTNcheckProfile"
+                android:onClick="onclickBTNcancel"
                 android:text="Cancel"
                 app:cornerRadius="20dp" />
 
@@ -75,7 +75,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:hint="Last name"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +88,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:hint="City name" />
+                android:hint="City name"
+                tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -101,7 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:hint="phone number"
-                android:minHeight="48dp" />
+                android:minHeight="48dp"
+                tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -124,18 +127,13 @@
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:foregroundGravity="center|center_horizontal"
-            app:srcCompat="@drawable/profile" />
-
-        <Button
-            android:id="@+id/imgBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
+            app:srcCompat="@drawable/profile"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
