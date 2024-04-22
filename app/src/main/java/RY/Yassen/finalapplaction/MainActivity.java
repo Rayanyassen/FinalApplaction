@@ -36,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         }
         if (item.getItemId() == R.id.itmLogout) {
-            FirebaseAuth.getInstance().signOut();
-            Intent i = new Intent(MainActivity.this, SignInActivty.class);
-            startActivity(i);
-            finish();
+            ShowNoYesDialog();
         }
         if (item.getItemId() == R.id.itmDirectMessage) {
             Intent i = new Intent(MainActivity.this, Message.class);
@@ -67,26 +64,27 @@ public class MainActivity extends AppCompatActivity {
             });
             popup.show();
         }
-//    public void ShowNoYesDialog()
-//    {
-//        //تجهيز بناء شباك حوار "ديالوغ" يتلقى بارمتر مؤشر للنشاط (اكتفيتي) الحالي
-//        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-//        builder.setTitle("Log out");// تحديد العنوان
-//        builder.setMessage("Are you sure?");//تحديد فحوى الشباك الحوار
-//        //النص على الزر ومعالج الحدث
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                //معالجه الحدث للموافقه
-//                Toast.makeText(MainActivity.this,"Signing out",Toast.LENGTH_SHORT).show();
-//                Intent i = new Intent(MainActivity.this, SignInActivty.class);
-//                startActivity(i);
-//
-//
-//            }
-//        });
-//        AlertDialog dialog= builder.create();// بناء شباك حوار - ديالوغ
-//        dialog.show();//عرض الشباك
-//    }
+    public void ShowNoYesDialog()
+    {
+        //تجهيز بناء شباك حوار "ديالوغ" يتلقى بارمتر مؤشر للنشاط (اكتفيتي) الحالي
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("Log out");// تحديد العنوان
+        builder.setMessage("Are you sure?");//تحديد فحوى الشباك الحوار
+        //النص على الزر ومعالج الحدث
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //معالجه الحدث للموافقه
+                Toast.makeText(MainActivity.this,"Signing out",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(MainActivity.this, SignInActivty.class);
+                startActivity(i);
+                FirebaseAuth.getInstance().signOut();
+
+
+            }
+        });
+        AlertDialog dialog= builder.create();// بناء شباك حوار - ديالوغ
+        dialog.show();//عرض الشباك
+    }
 
     }

@@ -66,7 +66,8 @@ public class SignInActivty extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignInActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Intent i= new Intent(SignInActivty.this, Profile.class);
+                        startActivity(i);
 
 
                     }

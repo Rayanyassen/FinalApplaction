@@ -80,7 +80,8 @@ public class SignUpActivty extends AppCompatActivity {
                 public void onComplete(@NonNull Task task) {//הפרמטר מכיל מהרשמת על תוצאת הבקשה לרישום
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
                         Toast.makeText(SignUpActivty.this, "Signing up Succeeded", Toast.LENGTH_SHORT).show();
-
+                        Intent i = new Intent(SignUpActivty.this, SignInActivty.class);
+                        startActivity(i);
                     } else {
                         Toast.makeText(SignUpActivty.this, "Signing up failed", Toast.LENGTH_SHORT).show();
                         Et_emailsignup.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהקבלה מהענן
