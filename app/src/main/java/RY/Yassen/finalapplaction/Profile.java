@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -17,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
@@ -39,7 +42,7 @@ public class Profile extends AppCompatActivity {
     private Button btnUpload;// לחצן לביצוע העלאת התמונה
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלא
-    private MyPlayer myPlayer;//עצם/נתון שרוצים לשמור
+    private MyPlayer player;//עצם/נתון שרוצים לשמור
     private myusers myusers;// עצם/נתון שרוצים לשמור
 
 
@@ -57,22 +60,16 @@ public class Profile extends AppCompatActivity {
         Et_phone = findViewById(R.id.Et_phone);
         ET_Username=findViewById(R.id.ET_Username);
         ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
-
-//upload: 3
         imgBtnl=findViewById(R.id.imgBtn);
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickImageFromGallery();
+                checkPermission();
+
 
             }
         });
-
-
-
-
     }
-
     /**
      * عملية  لاختيار صوره بمساعدة אינטנט מרומז: implicit intent
      */
@@ -82,8 +79,77 @@ public class Profile extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent,IMAGE_PICK_CODE);//הפעלתה האינטנט עם קוד הבקשה
     }
+    /**
+     * بعد اختيار الصوره بمساعده StartActivtyForResult نرجع للدالة onActivityResult التي تعتبر من حياة الاكتفتي لهذه العملية نحصل على اختيارنا
+     * @param requestCode מספר הקשה
+     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
+     * @param data הנתונים שנבחרו
+     */
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        //אם נבחר משהו ואם זה קוד בקשת התמונה
+        if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
+            //a עידכון תכונת כתובת התמונה
+            toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
+            imgBtnl.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+        }
+    }
+    //داله تفحص اذا يوجد اذن للوصول للملفات بالتلفون
+    private void checkPermission()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
+            //בדיקה אם ההשאה לא אושרה בעבר
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                //רשימת ההרשאות שרוצים לבקש אישור
+                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
+                //בקשת אישור ההשאות (שולחים קוד הבקשה)
+                //התשובה תתקבל בפעולה onRequestPermissionsResult
+                requestPermissions(permissions, PERMISSION_CODE);
+            } else {
+                //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
+                pickImageFromGallery();
+            }
+        }
+        else {//אם גרסה ישנה ולא צריך קבלת אישור
+            pickImageFromGallery();
+        }
+    }
+    /**
+     * @param requestCode The request code passed in מספר בקשת ההרשאה
+     * @param permissions The requested permissions. Never null. רשימת ההרשאות לאישור
+     * @param grantResults The grant results for the corresponding permissions תוצאה עבור כל הרשאה
+     *   PERMISSION_GRANTED אושר or PERMISSION_DENIED נדחה . Never null.
+     */
+    @Override
+    /**
+     *    نحصل على اجابه  طلب الاذن بواسطة requestPermissions من الدالة onRequestPermissionsResult
+     */
+    public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==PERMISSION_CODE) {//בדיקת קוד בקשת ההרשאה
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //permission was granted אם יש אישור
+                pickImageFromGallery();
+            } else {
+                //permission was denied אם אין אישור
+                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+    public void onclickBTNcheckProfile(View V) {
+        checkProfile();
+    }
 
 
+    public void onclickBTNcancel(View V) {
+        Intent i = new Intent(Profile.this, MainActivity.class);
+        startActivity(i);
+        //to close current activity
+        finish();
+    }
 
     private void checkProfile() {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة
@@ -150,7 +216,15 @@ public class Profile extends AppCompatActivity {
 
     }
 
-
+    /**
+     * داله تقوم بحفظ المعلومات في خانه الfirestore عن طريق استدعاء  FirebaseFirestore
+     * @param username
+     * @param firstName
+     * @param lastName
+     * @param yourCity
+     * @param areyouinClub
+     * @param phone
+     */
     private void SaveProfile_FB(String username, String firstName, String lastName, String yourCity, boolean areyouinClub,String phone ) {
         //مؤشر لقاعدة البيانات
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -190,15 +264,11 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-    public void onclickBTNcheckProfile(View V) {
-        checkProfile();
-    }
 
 
-    public void onclickBTNcancel(View V) {
-        Intent i = new Intent(Profile.this, MainActivity.class);
-        startActivity(i);
-        //to close current activity
-        finish();
-    }
+
+
+
+
+
 }

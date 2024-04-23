@@ -34,7 +34,6 @@ public class SignUpActivty extends AppCompatActivity {
         Et_emailsignup = findViewById(R.id.ET_FirstName);
         ETpassword = findViewById(R.id.ET_LastName);
         ETrepassword = findViewById(R.id.ET_city);
-
         btnsavesignup = findViewById(R.id.btnsavesignup);
         btnCancel = findViewById(R.id.btnCancelSignup);
     }
