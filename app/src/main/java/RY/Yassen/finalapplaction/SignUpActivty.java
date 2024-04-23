@@ -76,6 +76,10 @@ public class SignUpActivty extends AppCompatActivity {
             FirebaseAuth auth=FirebaseAuth.getInstance();
             // יצירת חשבון בעזרת  מיל וסיסמא
             auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener() {
+                /**
+                 *  عملية فحص اذا كان الايميل او الحساب موجود في الfirebase وتتم عن طريق عملية الauthentication
+                 * @param task
+                 */
                 @Override
                 public void onComplete(@NonNull Task task) {//הפרמטר מכיל מהרשמת על תוצאת הבקשה לרישום
                     if (task.isSuccessful()) {//אם הפעולה הצליחה

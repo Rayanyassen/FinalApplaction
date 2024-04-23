@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             });
             popup.show();
         }
+
     public void ShowNoYesDialog()
     {
         //تجهيز بناء شباك حوار "ديالوغ" يتلقى بارمتر مؤشر للنشاط (اكتفيتي) الحالي

@@ -55,6 +55,17 @@ public class Profile extends AppCompatActivity {
         ET_Username=findViewById(R.id.ET_Username);
         ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
 
+//upload: 3
+        imgBtnl=findViewById(R.id.imgBtn);
+        imgBtnl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
+
 
 
     }
@@ -143,6 +154,9 @@ public class Profile extends AppCompatActivity {
         db.collection("Profile").document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
             //داله معالجه الحدث
             @Override
+            /**
+             * عملية تقوم باستدعاء الfirestore لحفظ المعلومات بشكل مباشر
+             */
             public void onComplete(@NonNull Task<Void> task) {
                 // هل تم تنفيذ المطلوب بنجاح
                 if (task.isSuccessful()) {

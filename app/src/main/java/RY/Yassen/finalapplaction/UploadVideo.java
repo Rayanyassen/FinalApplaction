@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -18,9 +19,20 @@ public class UploadVideo extends AppCompatActivity {
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_video);
+        //upload: 3
+        imgBtnl=findViewById(R.id.imgBtn);
+        imgBtnl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+
     }
 }

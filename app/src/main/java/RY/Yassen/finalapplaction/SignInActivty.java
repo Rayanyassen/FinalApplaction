@@ -73,6 +73,10 @@ public class SignInActivty extends AppCompatActivity {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             //כניסה לחשבון בעזרת מיל ן סיסמא
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                /**
+                 *  عملية فحص اذا كان الايميل او الحساب موجود في الfirebase وتتم عن طريق عملية الauthentication
+                 * @param task
+                 */
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {//אם הפעולה הצליחה
