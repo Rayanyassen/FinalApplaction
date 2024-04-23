@@ -11,9 +11,6 @@
         android:id="@+id/itmLogout"
         android:title="Log out" />
     <item
-        android:id="@+id/itmsetting"
-        android:title="Setting" />
-    <item
         android:id="@+id/itmhistory"
         android:icon="@android:drawable/ic_menu_recent_history"
         android:title="History"

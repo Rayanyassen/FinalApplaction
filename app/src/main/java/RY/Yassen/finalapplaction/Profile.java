@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
+import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 public class Profile extends AppCompatActivity {
     private Button btnsavesignup;
@@ -38,6 +39,8 @@ public class Profile extends AppCompatActivity {
     private Button btnUpload;// לחצן לביצוע העלאת התמונה
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלא
+    private MyPlayer myPlayer;//עצם/נתון שרוצים לשמור
+    private myusers myusers;// עצם/נתון שרוצים לשמור
 
 
 
@@ -60,7 +63,7 @@ public class Profile extends AppCompatActivity {
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                pickImageFromGallery();
 
             }
         });
@@ -69,6 +72,18 @@ public class Profile extends AppCompatActivity {
 
 
     }
+
+    /**
+     * عملية  لاختيار صوره بمساعدة אינטנט מרומז: implicit intent
+     */
+    private void pickImageFromGallery(){
+        //implicit intent (מרומז) to pick image
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,IMAGE_PICK_CODE);//הפעלתה האינטנט עם קוד הבקשה
+    }
+
+
 
     private void checkProfile() {
         boolean isAllok = true; //يفحص الحقول ان كانت سليمة

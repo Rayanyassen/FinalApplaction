@@ -29,13 +29,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SettingActivty"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>

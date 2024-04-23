@@ -31,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.itmsetting) {
-            Intent i = new Intent(MainActivity.this, SettingActivty.class);
-            startActivity(i);
-        }
+
+
         if (item.getItemId() == R.id.itmLogout) {
             ShowNoYesDialog();
         }
