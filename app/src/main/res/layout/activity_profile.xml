@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Profile">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="16dp"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <Button
@@ -49,7 +49,7 @@
                 android:id="@+id/ET_Username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="Username" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,7 +61,7 @@
                 android:id="@+id/ET_FirstName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="First name"
                 android:minHeight="48dp" />
 
@@ -76,7 +76,7 @@
                 android:id="@+id/ET_LastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="Last name"
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck" />
@@ -90,7 +90,7 @@
                 android:id="@+id/ET_city"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="City name"
                 tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -104,7 +104,7 @@
                 android:id="@+id/Et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="phone number"
                 android:minHeight="48dp"
                 tools:ignore="TextContrastCheck" />
@@ -118,7 +118,7 @@
                 android:id="@+id/ET_RUINCLUB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_margin="3dp"
                 android:hint="Are you in club"
                 android:minHeight="48dp" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,15 +126,17 @@
         <AutoCompleteTextView
             android:id="@+id/autoEtProfile"
             android:layout_width="match_parent"
-            android:layout_height="4dp"
+            android:layout_height="wrap_content"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
             android:id="@+id/imgBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/profile" />
+            android:layout_height="match_parent"
+            android:minHeight="48dp"
+            app:srcCompat="@drawable/profile"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     </LinearLayout>
 

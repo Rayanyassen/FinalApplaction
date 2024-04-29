@@ -1,5 +1,4 @@
 package RY.Yassen.finalapplaction.Data.UsersTable;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 //Entity=table=جدول
@@ -11,11 +10,10 @@ import androidx.room.PrimaryKey;
 @Entity
 public class myusers {
     @PrimaryKey(autoGenerate = true)
-    public long keYid;//رقم المهمه
-    @ColumnInfo(name = "fullName")//اعطاء اسم جديد للعامود - الصفه في الجدول
-    public String fullName;
-    public String id;
-    public String email;// في حاله لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
+    public long keYid;//رقم الايدي لكل فيديو
+    public String fullName; //اسم الكامل للشخص
+    public String id;// رمز الايدي للحساب
+    public String email;
     public String passw;
 
     public long getKeYid() {
