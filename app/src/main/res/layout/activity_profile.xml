@@ -126,7 +126,7 @@
         <AutoCompleteTextView
             android:id="@+id/autoEtProfile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="4dp"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
