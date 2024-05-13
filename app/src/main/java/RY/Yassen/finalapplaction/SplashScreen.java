@@ -18,8 +18,6 @@ private TextView ET_Wlcm;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         Log.d(" ", "");
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        //بناء قاعدة بيانات وارجاع مؤشر عليها 1
 
         Handler h=new Handler();
         Runnable r= new Runnable() {

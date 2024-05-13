@@ -7,14 +7,13 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabadd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,20 +21,22 @@
         android:orientation="vertical">
 
         <SearchView
-            android:id="@+id/srchV"
+            android:id="@+id/srchS"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+        </SearchView>
 
         <Spinner
-            android:id="@+id/spnrSubject"
+            android:id="@+id/spnrskills"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_weight="1" />
 
         <ListView
-            android:id="@+id/lstvprofiles"
+            android:id="@+id/lstvskills"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#00B7FF" />
+            android:background="#00BCD4" />
     </LinearLayout>
 </RelativeLayout>

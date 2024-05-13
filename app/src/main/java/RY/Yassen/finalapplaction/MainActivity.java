@@ -8,18 +8,43 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+
+import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
+import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayerAdapter;
+import io.reactivex.annotations.NonNull;
 
 public class MainActivity extends AppCompatActivity {
+
+    MyPlayerAdapter myPlayerAdapter;
+    ListView lstProfile ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        lstProfile=findViewById(R.id.lstvprofiles);
+        myPlayerAdapter = new MyPlayerAdapter(this,R.layout.myprofiles_item_layout);
+        lstProfile.setAdapter(myPlayerAdapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        readTaskFrom_FB();
     }
 
     @Override//بناء القائمه
@@ -52,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuitem) {
-                    if (menuitem.getItemId() == R.id.itmupload) {
+                    if (menuitem.getItemId() == R.id.itmProfile) {
                         Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(MainActivity.this, UploadVideo.class);
                         startActivity(i);
@@ -86,4 +111,47 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();//عرض الشباك
     }
 
+    /**
+     *  קריאת נתונים ממסד הנתונים firestore
+     * @return .... רשימת הנתונים שנקראה ממסד הנתונים
+     */
+    public void readTaskFrom_FB()
+    {
+        //בניית רשימה ריקה
+        ArrayList<MyPlayer> arrayList =new ArrayList<>();
+        //קבלת הפנייה למסד הנתונים
+        FirebaseFirestore ffRef = FirebaseFirestore.getInstance();
+        //קישור לקבוצה לקבוצה שרוצים לקרוא
+        ffRef.collection("Profile")
+                //הוספת מאזין לקריאת הנתונים
+                       .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    /**
+                     * תגובה לאירוע השלמת קריאת הנתונים
+                     * @param task הנתונים שהתקבלו מענן מסד הנתונים
+                     */
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()) {// אם בקשת הנתונים התקבלה בהצלחה
+                            //מעבר על כל ה״מסמכים״= עצמים והוספתם למבנה הנתונים
+                            arrayList.clear();
+                            myPlayerAdapter.clear();
+                            for (DocumentSnapshot document : task.getResult().getDocuments()) {
+                                //המרת העצם לטיפוס שלו// הוספת העצם למבנה הנתונים
+                                arrayList.add(document.toObject(MyPlayer.class));
+                            }
+                            myPlayerAdapter.addAll(arrayList);
+                        }
+                        else{
+                            Toast.makeText(MainActivity.this, "Error Reading data"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
     }
+
+
+
+
+
+
+}

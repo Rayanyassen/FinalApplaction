@@ -13,7 +13,9 @@ public class MyPlayer {
     public String phone ;
     private boolean areyouinClub; // هل انت في فريق حالي
     public long profile;//الملف الشخصي
-
+    public String ShortTitlePlayer;
+    public String TextPlayer;
+    public String ImportancePlayer;
 
     public long getId() {
         return id;
@@ -79,17 +81,27 @@ public class MyPlayer {
         this.profile = profile;
     }
 
-    @Override
-    public String toString() {
-        return "MyPlayer{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", FirstName='" + firstName + '\'' +
-                ", LastName='" + lastName + '\'' +
-                ", YourCity='" + yourCity + '\'' +
-                ", phone='" + phone + '\'' +
-                ", AreyouinClub=" + areyouinClub +
-                ", Profile=" + profile +
-                '}';
+    public String getShortTitlePlayer() {
+        return ShortTitlePlayer;
+    }
+
+    public void setShortTitlePlayer(String shortTitlePlayer) {
+        ShortTitlePlayer = shortTitlePlayer;
+    }
+
+    public String getTextPlayer() {
+        return TextPlayer;
+    }
+
+    public void setTextPlayer(String textPlayer) {
+        TextPlayer = textPlayer;
+    }
+
+    public String getImportancePlayer() {
+        return ImportancePlayer;
+    }
+
+    public void setImportancePlayer(String importancePlayer) {
+        ImportancePlayer = importancePlayer;
     }
 }
