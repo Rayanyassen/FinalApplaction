@@ -231,7 +231,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
                 if(task.isSuccessful())
                 {
                     remove(myplayer);// מוחקים מהמתאם
-                    deleteFile(myplayer.getImage());// מחיקת הקובץ
+                    deleteFile(myplayer.get);// מחיקת הקובץ
                     Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
                 }
             }
