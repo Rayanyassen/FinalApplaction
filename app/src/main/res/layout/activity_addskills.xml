@@ -11,11 +11,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/uplvedio"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/uploadbtn" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnsave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onclickSAVE"
+                android:text="Save"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/btncancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onclickCancel"
+                android:text="Cancel"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -29,28 +47,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/uplvedio"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="fitCenter"
+
+            android:src="@drawable/uploadbtn" />
+
+        <VideoView
+            android:id="@+id/videoView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="match_parent" />
 
-            <Button
-                android:id="@+id/btnsave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Save"
-                app:cornerRadius="20dp" />
-
-            <Button
-                android:id="@+id/btncancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancel"
-                android:layout_weight="1"
-                app:cornerRadius="20dp"
-                />
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

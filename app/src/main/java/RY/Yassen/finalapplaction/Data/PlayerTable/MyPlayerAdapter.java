@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import RY.Yassen.finalapplaction.Manifest;
 import RY.Yassen.finalapplaction.R;
 
 public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
@@ -217,25 +216,25 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
      */
     private void delMyTaskFromDB_FB(MyPlayer myplayer )
     {
-        //הפנייה/כתובת  הפריט שרוצים למחוק
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
-        db.collection("myplayers").
-                document(FirebaseAuth.getInstance().getUid()).
-                collection("subjects").
-                document(myplayer.sbjId).
-                collection("Players").document(myplayer.id).
-                delete().//מאזין אם המחיקה בוצעה
-                addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    remove(myplayer);// מוחקים מהמתאם
-                    deleteFile(myplayer.get);// מחיקת הקובץ
-                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        //הפנייה/כתובת  הפריט שרוצים למחוק
+//        FirebaseFirestore db= FirebaseFirestore.getInstance();
+//        db.collection("myplayers").
+//                document(FirebaseAuth.getInstance().getUid()).
+//                collection("subjects").
+//                document(myplayer.sbjId).
+//                collection("Players").document(myplayer.id).
+//                delete().//מאזין אם המחיקה בוצעה
+//                addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful())
+//                {
+//                    remove(myplayer);// מוחקים מהמתאם
+//                    deleteFile(myplayer.get);// מחיקת הקובץ
+//                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
     /**
      * מחיקת קובץ האיחסון הענן

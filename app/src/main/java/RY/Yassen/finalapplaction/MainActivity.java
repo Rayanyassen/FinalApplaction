@@ -4,6 +4,7 @@ import static java.security.AccessController.getContext;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,12 +15,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,9 +41,14 @@ import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayerAdapter;
 import io.reactivex.annotations.NonNull;
 
 public class MainActivity extends AppCompatActivity {
-
+    FloatingActionButton fabaddProfiles;
+    private ListView lstProfile ;
+    SearchView SrchVprofile ;
+    Spinner spinnerProfiles;
+    ListView lstviewProfiles;
     MyPlayerAdapter myPlayerAdapter;
-    ListView lstProfile ;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +56,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lstProfile=findViewById(R.id.lstvprofiles);
+        fabaddProfiles=findViewById(R.id.fabAdd);
+        fabaddProfiles.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+
+                Intent i=new Intent(MainActivity.this,addskills.class);
+                startActivity(i);
+                finish();
+            }
+        });
+        SrchVprofile=findViewById(R.id.srchV);
+        spinnerProfiles=findViewById(R.id.spnrProfiles);
+        lstviewProfiles=findViewById(R.id.lstvprofiles);
+
+
+
         myPlayerAdapter = new MyPlayerAdapter(this,R.layout.myprofiles_item_layout);
         lstProfile.setAdapter(myPlayerAdapter);
+
 
     }
 
@@ -57,14 +82,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         readTaskFrom_FB();
+
     }
 
     @Override//بناء القائمه
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-
     }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -73,32 +99,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.itmLogout) {
             ShowNoYesDialog();
         }
-        if (item.getItemId() == R.id.itmDirectMessage) {
-            Intent i = new Intent(MainActivity.this, Message.class);
-            startActivity(i);
-            finish();
-        }
+
         return true;
     }
-        public void showPopUpMenu (View v){
-            //popup menu بناء قائمه
-            PopupMenu popup = new PopupMenu(this, v);//الكائن الذي سبب فتح القائمه v
-            //ملف القائمه
-            popup.inflate(R.menu.popup_menu);
-            //اضافه معالج حدث لاختيار عنصر من القائمه
-            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuitem) {
-                    if (menuitem.getItemId() == R.id.itmProfile) {
-                        Toast.makeText(MainActivity.this, "Upload", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(MainActivity.this, UploadVideo.class);
-                        startActivity(i);
-                    }
-                    return true;
-                }
-            });
-            popup.show();
-        }
 
     public void ShowNoYesDialog()
     {

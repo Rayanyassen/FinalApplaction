@@ -27,7 +27,7 @@
             android:layout_height="wrap_content" />
 
         <Spinner
-            android:id="@+id/spnrSubject"
+            android:id="@+id/spnrProfiles"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             tools:ignore="SpeakableTextPresentCheck" />

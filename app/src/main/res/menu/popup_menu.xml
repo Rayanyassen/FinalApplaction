@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/itmProfile"
-        android:title="My Profile" />
+        android:title="Add Skills" />
     <item
         android:id="@+id/itmhistory"
         android:icon="@android:drawable/ic_menu_recent_history"
