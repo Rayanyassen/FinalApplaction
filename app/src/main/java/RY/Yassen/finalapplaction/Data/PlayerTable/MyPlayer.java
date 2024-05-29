@@ -13,9 +13,20 @@ public class MyPlayer {
     public String phone ;
     private boolean areyouinClub; // هل انت في فريق حالي
     public long profile;//الملف الشخصي
-    public String ShortTitlePlayer;
-    public String TextPlayer;
-    public String ImportancePlayer;
+    public String shortTitlePlayer;
+    public String textPlayer;
+    public String importancePlayer;
+    private String uid;
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void   setImage(String image) {
+        Image = image;
+    }
+
+    private String Image;
 
     public long getId() {
         return id;
@@ -82,26 +93,35 @@ public class MyPlayer {
     }
 
     public String getShortTitlePlayer() {
-        return ShortTitlePlayer;
+        return shortTitlePlayer;
     }
 
     public void setShortTitlePlayer(String shortTitlePlayer) {
-        ShortTitlePlayer = shortTitlePlayer;
+        this.shortTitlePlayer = shortTitlePlayer;
     }
 
     public String getTextPlayer() {
-        return TextPlayer;
+        return textPlayer;
     }
 
     public void setTextPlayer(String textPlayer) {
-        TextPlayer = textPlayer;
+        this.textPlayer = textPlayer;
     }
 
     public String getImportancePlayer() {
-        return ImportancePlayer;
+        return importancePlayer;
     }
 
     public void setImportancePlayer(String importancePlayer) {
-        ImportancePlayer = importancePlayer;
+        this.importancePlayer = importancePlayer;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getUid() {
+        return uid;
     }
 }
+

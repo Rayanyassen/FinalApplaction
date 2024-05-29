@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
@@ -16,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class skills extends AppCompatActivity {
     private FloatingActionButton fabaddskills;
-    private SearchView srchvskills;
+    private EditText srchvskills;
     private Spinner spinerskills;
     private ListView listskills;
 
@@ -65,6 +66,11 @@ public class skills extends AppCompatActivity {
             }
         });
         popup.show();
+    }
+    public void onclickSkills(View v) {
+        Intent i = new Intent(skills.this, addskills.class);
+        startActivity(i);
+        finish();
     }
 
 }

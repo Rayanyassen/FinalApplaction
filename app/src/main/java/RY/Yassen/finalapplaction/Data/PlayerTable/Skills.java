@@ -3,7 +3,7 @@ package RY.Yassen.finalapplaction.Data.PlayerTable;
 public class Skills {
 public String uid;
 public String id;
-public String Video;
+public String video;
 public String Text;
 
 
@@ -24,11 +24,11 @@ public String Text;
     }
 
     public String getVideo() {
-        return Video;
+        return video;
     }
 
     public void setVideo(String video) {
-        Video = video;
+        this.video = video;
     }
 
     public String getText() {
@@ -44,7 +44,7 @@ public String Text;
         return "Skills{" +
                 "uid='" + uid + '\'' +
                 ", id='" + id + '\'' +
-                ", Video='" + Video + '\'' +
+                ", Video='" + video + '\'' +
                 ", Text='" + Text + '\'' +
                 '}';
     }

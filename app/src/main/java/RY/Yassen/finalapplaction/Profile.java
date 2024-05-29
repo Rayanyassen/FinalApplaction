@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -21,6 +22,12 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
@@ -42,10 +49,8 @@ public class Profile extends AppCompatActivity {
     private Button btnUpload;// לחצן לביצוע העלאת התמונה
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלא
-    private MyPlayer player;//עצם/נתון שרוצים לשמור
     private myusers myusers;// עצם/נתון שרוצים לשמור
-
-
+    private MyPlayer profiles=new MyPlayer();//עצם/נתון שרוצים לשמור
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +172,7 @@ public class Profile extends AppCompatActivity {
         boolean AreyouinClub=true;
 
         //فحص الاسم ان كان طوله اقل من حرفين او  يحوي فراغ فهو خطأ
-        if (username.length() < 2 || username.contains(" ") == false) {
+        if (username.length() < 2 && username.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل  الملف الشخصي
@@ -175,7 +180,7 @@ public class Profile extends AppCompatActivity {
 
         }
         //فحص الاسم ان كان طوله اقل من 6 او  يحوي فراغ فهو خطأ
-        if (Firstname.length() > 6 || Firstname.contains(" ") == false) {
+        if (Firstname.length() > 6 && Firstname.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل  الملف الشخصي
@@ -183,61 +188,60 @@ public class Profile extends AppCompatActivity {
 
         }
         //فحص الاسم ان كان طوله اقل من 7 او  يحوي فراغ فهو خطأ
-        if (Lastname.length() > 7 || Lastname.contains(" ") == false) {
+        if (Lastname.length() > 7 && Lastname.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             ET_LastName.setError("Wrong LastName");
         }
-        if (Cityname.length() > 4 || Cityname.contains(" ") == true) {
+        if (Cityname.length() > 4 && Cityname.contains(" ") == false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             ET_city.setError("Wrong CityName");
         }
-        if (phone.length() != 10 || phone.contains(" ") == false) {
+        if (phone.length() != 10 && phone.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             Et_phone.setError("Wrong phone number");
 
         }
-        if (AreyouinClub==true) {
+        if (AreyouinClub==false) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
-            isAllok = true;
+            isAllok = false;
+            Toast.makeText(this, "Wrong Answer", Toast.LENGTH_SHORT).show();
 
+        }
+        if(toUploadimageUri==null)
+        {
+            isAllok=true;
+            Toast.makeText(this, "add Image", Toast.LENGTH_SHORT).show();
         }
 
         if(isAllok){
-            //استعمال داله Saveprofile
-            SaveProfile_FB(username,Firstname,Lastname,Cityname,AreyouinClub, phone);
+            //يتم تعبئه الكائن profiles بصفات التالية.
+            profiles.setUsername(username);
+            profiles.setFirstName(Firstname);
+            profiles.setLastName(Lastname);
+            profiles.setYourCity(Cityname);
+            profiles.setAreyouinClub(AreyouinClub);
+            profiles.setPhone(phone);
+          uploadImage(toUploadimageUri);
 
         }
 
     }
 
-    /**
-     * داله تقوم بحفظ المعلومات في خانه الfirestore عن طريق استدعاء  FirebaseFirestore
-     * @param username
-     * @param firstName
-     * @param lastName
-     * @param yourCity
-     * @param areyouinClub
-     * @param phone
-     */
-    private void SaveProfile_FB(String username, String firstName, String lastName, String yourCity, boolean areyouinClub,String phone ) {
+
+    private void SaveProfile_FB() {
         //مؤشر لقاعدة البيانات
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         //بناء الكائن الذي سيتم حفظه
-        MyPlayer profiles = new MyPlayer();
-        profiles.setUsername(username);
-        profiles.setFirstName(firstName);
-        profiles.setLastName(lastName);
-        profiles.setYourCity(yourCity);
-        profiles.setAreyouinClub(areyouinClub);
-        profiles.setPhone(phone);
+
+        profiles.setUid(uid);
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
         // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
         db.collection("Profile").document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -262,12 +266,61 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
+
+
+        }
+
+    private void uploadImage(Uri filePath) {
+        if (filePath != null) {
+            //יצירת דיאלוג התקדמות
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();//הצגת הדיאלוג
+            //קבלת כתובת האחסון בענן
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference = storage.getReference();
+            //יצירת תיקיה ושם גלובלי לקובץ
+            final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            // יצירת ״תהליך מקביל״ להעלאת תמונה
+            ref.putFile(filePath)
+                    //הוספת מאזין למצב ההעלאה
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();// הסתרת הדיאלוג
+                                //קבלת כתובת הקובץ שהועלה
+                                ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        downladuri = task.getResult();
+                                        Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                                        profiles.setImage(downladuri.toString());//עדכון כתובת התמונה שהועלתה
+                                        SaveProfile_FB();
+                                    }
+                                });
+                            } else {
+                                progressDialog.dismiss();//הסתרת הדיאלוג
+                                Toast.makeText(getApplicationContext(), "Failed " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    //הוספת מאזין שמציג מהו אחוז ההעלאה
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //חישוב מה הגודל שהועלה
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                        }
+                    });
+        } else {
+            SaveProfile_FB();
+        }
+
+
     }
-
-
-
-
-
 
 
 

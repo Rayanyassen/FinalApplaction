@@ -4,7 +4,6 @@ import static android.Manifest.permission.CALL_PHONE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static androidx.core.app.ActivityCompat.requestPermissions;
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
-import static java.security.AccessController.getContext;
 
 import android.app.Activity;
 import android.content.Context;
@@ -84,6 +83,12 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
             @Override
             public void onClick(View view) {
                 openSendSmsApp(current.getTextPlayer(), "");// אם יש טלפון המשימה מעבירים במקום ה ״״
+            }
+        });
+        btnCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAPhoneNumber(current.phone);
             }
         });
         return vitem;
@@ -214,27 +219,25 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
      * מחיקת פריט כולל התמונה מבסיס הנתונים
      * @param myplayer הפריט שמוחקים
      */
-    private void delMyTaskFromDB_FB(MyPlayer myplayer )
+    private void delMyPlayerFromDB_FB(MyPlayer myplayer )
     {
-//        //הפנייה/כתובת  הפריט שרוצים למחוק
-//        FirebaseFirestore db= FirebaseFirestore.getInstance();
-//        db.collection("myplayers").
-//                document(FirebaseAuth.getInstance().getUid()).
-//                collection("subjects").
-//                document(myplayer.sbjId).
-//                collection("Players").document(myplayer.id).
-//                delete().//מאזין אם המחיקה בוצעה
-//                addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful())
-//                {
-//                    remove(myplayer);// מוחקים מהמתאם
-//                    deleteFile(myplayer.get);// מחיקת הקובץ
-//                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        //הפנייה/כתובת  הפריט שרוצים למחוק
+        FirebaseFirestore db= FirebaseFirestore.getInstance();
+
+
+        db.collection("Profile").document(myplayer.getUid()).
+                delete().//מאזין אם המחיקה בוצעה
+                addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    remove(myplayer);// מוחקים מהמתאם
+                    deleteFile(myplayer.getImage());// מחיקת הקובץ
+                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     /**
      * מחיקת קובץ האיחסון הענן

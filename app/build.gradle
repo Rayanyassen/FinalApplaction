@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "RY.Yassen.finalapplaction"
-        minSdk 28
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"

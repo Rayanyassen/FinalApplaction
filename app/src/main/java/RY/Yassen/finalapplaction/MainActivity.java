@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -43,7 +44,7 @@ import io.reactivex.annotations.NonNull;
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabaddProfiles;
     private ListView lstProfile ;
-    SearchView SrchVprofile ;
+    EditText SrchVprofile ;
     Spinner spinnerProfiles;
     ListView lstviewProfiles;
     MyPlayerAdapter myPlayerAdapter;
