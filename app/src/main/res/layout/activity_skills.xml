@@ -21,14 +21,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
+        <SearchView
             android:id="@+id/srchS"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search ="
-            tools:ignore="TouchTargetSizeCheck">
-
-        </EditText>
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/spnrskills"
@@ -40,6 +36,6 @@
             android:id="@+id/lstvskills"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#00BCD4" />
+            android:background="@color/ic_launcher_background" />
     </LinearLayout>
 </RelativeLayout>

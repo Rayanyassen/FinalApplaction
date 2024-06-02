@@ -57,16 +57,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lstProfile=findViewById(R.id.lstvprofiles);
-        fabaddProfiles=findViewById(R.id.fabAdd);
-        fabaddProfiles.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-
-                Intent i=new Intent(MainActivity.this,addskills.class);
-                startActivity(i);
-                finish();
-            }
-        });
         SrchVprofile=findViewById(R.id.srchV);
         spinnerProfiles=findViewById(R.id.spnrProfiles);
         lstviewProfiles=findViewById(R.id.lstvprofiles);

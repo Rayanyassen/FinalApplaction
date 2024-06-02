@@ -27,7 +27,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,7 +65,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         //קבלת הפניות לרכיבים בקובץ העיצוב
 
         ImageView imageView = vitem.findViewById(R.id.imgVitm);
-        TextView tvTitle = vitem.findViewById(R.id.tvItmTitle);
+        TextView tvTitle = vitem.findViewById(R.id.tvItmName);
         TextView tvText = vitem.findViewById(R.id.tvItmText);
         TextView tvImportance = vitem.findViewById(R.id.tvItmImportance);
         ImageButton btnSendSMS = vitem.findViewById(R.id.imgBtnSendSmsitm);
@@ -91,6 +90,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
                 callAPhoneNumber(current.phone);
             }
         });
+
         return vitem;
     }
 

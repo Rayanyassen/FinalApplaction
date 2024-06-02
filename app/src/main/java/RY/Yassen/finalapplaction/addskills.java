@@ -18,6 +18,8 @@ import android.widget.VideoView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -26,6 +28,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.UUID;
 
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
+import RY.Yassen.finalapplaction.Data.PlayerTable.Skills;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 
@@ -33,16 +36,14 @@ public class addskills extends AppCompatActivity {
     private TextInputEditText ET_Text;
     private Button btnsaveskills;
     private Button btncancelskills;
-    private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
-    private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה לקבצים
+    private final int IMAGE_PICK_CODE = 100;// קוד מזהה לבקשת בחירת תמונה
+    private final int PERMISSION_CODE = 101;//קוד מזהה לבחירת הרשאת גישה לקבצים
     private Uri toUploadVideoUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלא
-    private MyPlayer player;//עצם/נתון שרוצים לשמור
     private myusers myusers;// עצם/נתון שרוצים לשמור
     private ImageView uplvedio;//כפתור/ לחצן לבחירת תמונה והצגתה
     private VideoView videoview;
-
-
+    private Skills skillss = new Skills();//עצם/נתון שרוצים לשמור
 
 
     @Override
@@ -53,7 +54,7 @@ public class addskills extends AppCompatActivity {
         ET_Text = findViewById(R.id.ET_Text);
         btnsaveskills = findViewById(R.id.btnsave);
         btncancelskills = findViewById(R.id.btncancel);
-        videoview=findViewById(R.id.videoView);
+        videoview = findViewById(R.id.videoView);
         uplvedio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +64,36 @@ public class addskills extends AppCompatActivity {
             }
         });
     }
+    private void SaveSkills_FB(){
+//مؤشر لقاعدة البيانات
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل دوكيومينت
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        skillss.setUid(uid);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
+        // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+        db.collection("Skills").document(uid).set(skillss).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(addskills.this, "Succeeded to Add skill", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(addskills.this, MainActivity.class);
+                    startActivity(i);
+
+
+                } else {
+                    Toast.makeText(addskills.this, "Failed to Add skill", Toast.LENGTH_SHORT).show();
+
+
+                }
+            }
+            });
+
+
+
+    }
+
 
 
 
@@ -166,7 +197,7 @@ public class addskills extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageReference = storage.getReference();
             //יצירת תיקיה ושם גלובלי לקובץ
-            final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            final StorageReference ref = storageReference.child("Video/" + UUID.randomUUID().toString());
             // יצירת ״תהליך מקביל״ להעלאת תמונה
             ref.putFile(filePath)
                     //הוספת מאזין למצב ההעלאה
@@ -181,8 +212,9 @@ public class addskills extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         downladuri = task.getResult();
                                         Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
-                                        skills.setVideo(downladuri.toString());//עדכון כתובת התמונה שהועלתה
+                                        skillss.setVideo(downladuri.toString());//עדכון כתובת התמונה שהועלתה
                                         //استعمال داله لحفظ الskills
+                                        SaveSkills_FB();
                                     }
                                 });
                             } else {
@@ -202,8 +234,8 @@ public class addskills extends AppCompatActivity {
                         }
                     });
         } else {
-            //استعمال داله لحفظ الskills
-//            SaveProfile_FB();
+
+            SaveSkills_FB();
         }
 
 
