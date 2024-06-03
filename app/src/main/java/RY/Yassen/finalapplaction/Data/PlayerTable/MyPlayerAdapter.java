@@ -82,7 +82,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSendWhatsAppV2(current.getTextPlayer(),current.phone);
+                openSendSmsApp(current.getTextPlayer(),current.phone);
             }
         });
         btnCall.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +94,14 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delMyPlayerFromDB_FB(MyPlayer player);
+                delMyPlayerFromDB_FB( player);
 
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSendWhatsAppV2(current.getTextPlayer(),current.getPhone());
             }
         });
         downloadImageUsingPicasso(current.getImage(),imageView);

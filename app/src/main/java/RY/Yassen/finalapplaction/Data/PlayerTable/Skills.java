@@ -1,5 +1,7 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
 
+import android.net.Uri;
+
 public class Skills {
 public String uid;
 public String id;
@@ -23,9 +25,6 @@ public String Text;
         this.id = id;
     }
 
-    public String getVideo() {
-        return video;
-    }
 
     public void setVideo(String video) {
         this.video = video;

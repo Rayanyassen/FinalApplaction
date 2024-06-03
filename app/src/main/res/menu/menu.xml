@@ -14,4 +14,7 @@
         android:title="Settings"
         android:id="@+id/itmSettings"
         />
+    <item
+        android:id="@+id/itmskills"
+        android:title="skills" />
 </menu>

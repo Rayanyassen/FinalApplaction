@@ -1,5 +1,8 @@
 package RY.Yassen.finalapplaction;
 
+import static android.Manifest.permission.READ_MEDIA_IMAGES;
+import static android.Manifest.permission.READ_MEDIA_VIDEO;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +30,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.util.UUID;
 
-import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 import RY.Yassen.finalapplaction.Data.PlayerTable.Skills;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
@@ -61,6 +63,12 @@ public class addskills extends AppCompatActivity {
                 checkPickvideoPermission();
 
 
+            }
+        });
+        btnsaveskills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               checknewskills();
             }
         });
     }
@@ -107,11 +115,8 @@ public class addskills extends AppCompatActivity {
 
         }
         if (isAllOK){
-
-            Toast.makeText(this, "The video has been downloaded", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(addskills.this, MainActivity.class);
-            startActivity(i);
-            finish();
+            skillss.setText(Text);
+            uploadVideo(toUploadVideoUri);
         }
 
     }
@@ -141,6 +146,7 @@ public class addskills extends AppCompatActivity {
             //a עידכון תכונת כתובת התמונה
             toUploadVideoUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
             videoview.setVideoURI(toUploadVideoUri);// הצגת התמונה שנבחרה על רכיב התמונה
+            videoview.seekTo(2);
         }
     }
     //داله تفحص اذا يوجد اذن للوصول للملفات بالتلفون
@@ -148,9 +154,12 @@ public class addskills extends AppCompatActivity {
     {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
             //בדיקה אם ההשאה לא אושרה בעבר
-            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED &&
+                    checkSelfPermission(READ_MEDIA_VIDEO) == PackageManager.PERMISSION_DENIED&&
+                    checkSelfPermission(READ_MEDIA_IMAGES) == PackageManager.PERMISSION_DENIED) {
                 //רשימת ההרשאות שרוצים לבקש אישור
-                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
+                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE,READ_MEDIA_VIDEO,READ_MEDIA_IMAGES};
+
                 //בקשת אישור ההשאות (שולחים קוד הבקשה)
                 //התשובה תתקבל בפעולה onRequestPermissionsResult
                 requestPermissions(permissions, PERMISSION_CODE);
@@ -187,7 +196,7 @@ public class addskills extends AppCompatActivity {
 
     }
 
-    private void uploadImage(Uri filePath) {
+    private void uploadVideo(Uri filePath) {
         if (filePath != null) {
             //יצירת דיאלוג התקדמות
             final ProgressDialog progressDialog = new ProgressDialog(this);
