@@ -44,7 +44,6 @@ import io.reactivex.annotations.NonNull;
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabaddProfiles;
     private ListView lstProfile ;
-    EditText SrchVprofile ;
     Spinner spinnerProfiles;
     ListView lstviewProfiles;
     MyPlayerAdapter myPlayerAdapter;
@@ -57,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         lstProfile=findViewById(R.id.lstvprofiles);
-        SrchVprofile=findViewById(R.id.srchV);
         spinnerProfiles=findViewById(R.id.spnrProfiles);
         lstviewProfiles=findViewById(R.id.lstvprofiles);
 
@@ -89,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.itmLogout) {
             ShowNoYesDialog();
+        }
+        if (item.getItemId()== R.id.itmSettings){
+
         }
 
         return true;

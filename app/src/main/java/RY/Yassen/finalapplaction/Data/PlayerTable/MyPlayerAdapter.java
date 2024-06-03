@@ -42,6 +42,7 @@ import RY.Yassen.finalapplaction.R;
 
 public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
     private final int itemLayout;
+    MyPlayer player=new MyPlayer();
 
     /**
      * פעולה בונה מתאם
@@ -81,7 +82,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSendSmsApp(current.getTextPlayer(), "");// אם יש טלפון המשימה מעבירים במקום ה ״״
+                openSendWhatsAppV2(current.getTextPlayer(),current.phone);
             }
         });
         btnCall.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +91,16 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
                 callAPhoneNumber(current.phone);
             }
         });
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delMyPlayerFromDB_FB(MyPlayer player);
+
+            }
+        });
+        downloadImageUsingPicasso(current.getImage(),imageView);
+
+
 
         return vitem;
     }

@@ -12,15 +12,22 @@
         android:orientation="vertical">
 
 
-        <SearchView
-            android:id="@+id/srchV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <android.widget.SearchView
+            android:id="@+id/fabaddProfiles"
+            android:layout_width="410dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/grid_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/spnrProfiles"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ListView
