@@ -2,8 +2,6 @@ package RY.Yassen.finalapplaction;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,25 +13,21 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.util.UUID;
-
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
-import RY.Yassen.finalapplaction.Data.PlayerTable.myPlayerQuery;
 import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 public class Profile extends AppCompatActivity {
+    public static final String PROFILE = "Profile";
     private Button btnsavesignup;
     private Button btnCancelSignup;
     private TextInputEditText ET_FirstName;
@@ -244,7 +238,7 @@ public class Profile extends AppCompatActivity {
         profiles.setUid(uid);
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
         // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("Profile").document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection(PROFILE).document(uid).set(profiles).addOnCompleteListener(new OnCompleteListener<Void>() {
             //داله معالجه الحدث
             @Override
             /**

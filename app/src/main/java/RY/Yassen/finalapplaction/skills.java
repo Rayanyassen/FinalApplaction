@@ -1,28 +1,27 @@
 package RY.Yassen.finalapplaction;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.SearchView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 
 public class skills extends AppCompatActivity {
     private FloatingActionButton fabaddskills;
     private SearchView srchvskills;
     private Spinner spinerskills;
     private ListView listskills;
-
+MyPlayer player=new MyPlayer();
 
 
     @Override
@@ -43,6 +42,14 @@ public class skills extends AppCompatActivity {
         spinerskills=findViewById(R.id.spnrskills);
         listskills=findViewById(R.id.lstvskills);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(getIntent()!=null&&getIntent().getExtras()!=null&&getIntent().getExtras().get("Player")!=null){
+            player= (MyPlayer) getIntent().getExtras().get("Player");
+        }
     }
 
     @Override

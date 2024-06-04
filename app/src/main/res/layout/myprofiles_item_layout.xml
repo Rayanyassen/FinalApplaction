@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/imgVitm"
-            android:layout_width="wrap_content"
+            android:layout_width="386dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             tools:srcCompat="@drawable/profile" />
@@ -34,7 +34,7 @@
                 android:text="Name Player" />
 
             <TextView
-                android:id="@+id/tvItmText"
+                android:id="@+id/tvItmCity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,7 +42,7 @@
                 android:text="For Text" />
 
             <TextView
-                android:id="@+id/tvItmImportance"
+                android:id="@+id/tvItmNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -56,28 +56,35 @@
 
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/imgBtnSendSmsitm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/ic_menu_send" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/imgBtnCallitm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/sym_action_call" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/imgBtnEdititm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@android:drawable/ic_menu_edit" />
 
-                <ImageButton
+                <ImageView
+                    android:id="@+id/imgBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    app:srcCompat="@android:drawable/presence_video_online" />
+
+                <ImageView
                     android:id="@+id/imgBtnDeleteitm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -2,8 +2,10 @@ package RY.Yassen.finalapplaction.Data.PlayerTable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class MyPlayer {
+public class MyPlayer implements Serializable {
     @PrimaryKey(autoGenerate = true)
     long id;
     public String username;// اسم المستخدم

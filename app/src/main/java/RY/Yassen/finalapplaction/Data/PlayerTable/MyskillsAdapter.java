@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,14 +37,11 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import RY.Yassen.finalapplaction.MainActivity;
-import RY.Yassen.finalapplaction.Profile;
 import RY.Yassen.finalapplaction.R;
 import RY.Yassen.finalapplaction.skills;
 
-public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
+public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
     private final int itemLayout;
-    MyPlayer player=new MyPlayer();
 
     /**
      * פעולה בונה מתאם
@@ -55,7 +51,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
      *                 تصميم قائمه لعرض المعطيات الكائن
      */
 
-    public MyPlayerAdapter(@NonNull Context context, int resource) {
+    public MyskillsAdapter(@NonNull Context context, int resource) {
         super(context, resource);
         this.itemLayout = resource;
 
@@ -68,22 +64,14 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
             vitem = LayoutInflater.from(getContext()).inflate(itemLayout, parent, false);
         //קבלת הפניות לרכיבים בקובץ העיצוב
 
-        ImageView imageProfile = vitem.findViewById(R.id.imgVitm);
-        TextView tvName = vitem.findViewById(R.id.tvItmName);
-        TextView tvCity = vitem.findViewById(R.id.tvItmCity);
-        TextView tvNumber = vitem.findViewById(R.id.tvItmNumber);
-        ImageView btnSendSMS = vitem.findViewById(R.id.imgBtnSendSmsitm);
-        ImageView btnEdit = vitem.findViewById(R.id.imgBtnEdititm);
-        ImageView btnCall = vitem.findViewById(R.id.imgBtnCallitm);
+
+        ImageView imgplay = vitem.findViewById(R.id.imgplay);
+        ImageView imgpuase = vitem.findViewById(R.id.imgpuase);
+        ImageView imgstop = vitem.findViewById(R.id.imgstop);
         ImageView btnDel = vitem.findViewById(R.id.imgBtnDeleteitm);
-        ImageView btnskills=vitem.findViewById(R.id.imgBtn);
         //קבלת הנתון (עצם) הנוכחי
         MyPlayer current = getItem(position);
-        tvName.setText(current.getShortTitlePlayer());
-        tvCity.setText(current.getTextPlayer());
-        tvName.setText("My Name is " + current.getFirstName() + " " + current.getLastName());
-        tvCity.setText("I live in " + current.getYourCity());
-        tvNumber.setText("Phone number:" + current.getPhone());
+
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

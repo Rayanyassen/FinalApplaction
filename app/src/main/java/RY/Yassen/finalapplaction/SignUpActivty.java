@@ -13,10 +13,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import RY.Yassen.finalapplaction.Data.UsersTable.MyUsersQuery;
-import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 
 public class SignUpActivty extends AppCompatActivity {

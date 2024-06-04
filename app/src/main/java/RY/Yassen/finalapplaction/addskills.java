@@ -3,6 +3,8 @@ package RY.Yassen.finalapplaction;
 import static android.Manifest.permission.READ_MEDIA_IMAGES;
 import static android.Manifest.permission.READ_MEDIA_VIDEO;
 
+import static RY.Yassen.finalapplaction.Profile.PROFILE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +37,7 @@ import RY.Yassen.finalapplaction.Data.UsersTable.myusers;
 
 
 public class addskills extends AppCompatActivity {
+    public static final String SKILLS = "Skills";
     private TextInputEditText ET_Text;
     private Button btnsaveskills;
     private Button btncancelskills;
@@ -79,9 +82,11 @@ public class addskills extends AppCompatActivity {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         //بناء الكائن الذي سيتم حفظه
         skillss.setUid(uid);
+        String id = db.collection(PROFILE).document(uid).collection(SKILLS).document().getId();
+        skillss.setId(id);
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
         // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("Skills").document(uid).set(skillss).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection(PROFILE).document(uid).collection(SKILLS).document(id).set(skillss).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
