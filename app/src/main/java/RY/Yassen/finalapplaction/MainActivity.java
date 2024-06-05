@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,11 +29,10 @@ import io.reactivex.annotations.NonNull;
 
 public class MainActivity extends AppCompatActivity {
     FloatingActionButton fabaddProfiles;
-    private ListView lstProfile ;
+    private ListView lstProfile;
     Spinner spinnerProfiles;
     ListView lstviewProfiles;
     MyPlayerAdapter myPlayerAdapter;
-
 
 
     @Override
@@ -39,13 +40,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lstProfile=findViewById(R.id.lstvprofiles);
-        spinnerProfiles=findViewById(R.id.spnrProfiles);
-        lstviewProfiles=findViewById(R.id.lstvprofiles);
+        lstProfile = findViewById(R.id.lstvprofiles);
+        spinnerProfiles = findViewById(R.id.spnrProfiles);
+        lstviewProfiles = findViewById(R.id.lstvprofiles);
 
 
-
-        myPlayerAdapter = new MyPlayerAdapter(this,R.layout.myprofiles_item_layout);
+        myPlayerAdapter = new MyPlayerAdapter(this, R.layout.myprofiles_item_layout);
         lstProfile.setAdapter(myPlayerAdapter);
 
 
@@ -76,16 +76,15 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.itmskills) {
 
-            Intent i = new Intent(MainActivity.this, skills.class);
+            Intent i = new Intent(MainActivity.this, skillsactivty.class);
             startActivity(i);
         }
         return true;
     }
 
-    public void ShowNoYesDialog()
-    {
+    public void ShowNoYesDialog() {
         //تجهيز بناء شباك حوار "ديالوغ" يتلقى بارمتر مؤشر للنشاط (اكتفيتي) الحالي
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Log out");// تحديد العنوان
         builder.setMessage("Are you sure?");//تحديد فحوى الشباك الحوار
         //النص على الزر ومعالج الحدث
@@ -93,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //معالجه الحدث للموافقه
-                Toast.makeText(MainActivity.this,"Signing out",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Signing out", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(MainActivity.this, SignInActivty.class);
                 startActivity(i);
                 FirebaseAuth.getInstance().signOut();
@@ -101,31 +100,32 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        AlertDialog dialog= builder.create();// بناء شباك حوار - ديالوغ
+        AlertDialog dialog = builder.create();// بناء شباك حوار - ديالوغ
         dialog.show();//عرض الشباك
     }
 
+
     /**
-     *  קריאת נתונים ממסד הנתונים firestore
+     * קריאת נתונים ממסד הנתונים firestore
+     *
      * @return .... רשימת הנתונים שנקראה ממסד הנתונים
      */
-    public void readTaskFrom_FB()
-    {
+    public void readTaskFrom_FB() {
         //בניית רשימה ריקה
-        ArrayList<MyPlayer> arrayList =new ArrayList<>();
+        ArrayList<MyPlayer> arrayList = new ArrayList<>();
         //קבלת הפנייה למסד הנתונים
         FirebaseFirestore ffRef = FirebaseFirestore.getInstance();
         //קישור לקבוצה לקבוצה שרוצים לקרוא
         ffRef.collection("Profile")
                 //הוספת מאזין לקריאת הנתונים
-                       .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     /**
                      * תגובה לאירוע השלמת קריאת הנתונים
                      * @param task הנתונים שהתקבלו מענן מסד הנתונים
                      */
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()) {// אם בקשת הנתונים התקבלה בהצלחה
+                        if (task.isSuccessful()) {// אם בקשת הנתונים התקבלה בהצלחה
                             //מעבר על כל ה״מסמכים״= עצמים והוספתם למבנה הנתונים
                             arrayList.clear();
                             myPlayerAdapter.clear();
@@ -134,34 +134,15 @@ public class MainActivity extends AppCompatActivity {
                                 arrayList.add(document.toObject(MyPlayer.class));
                             }
                             myPlayerAdapter.addAll(arrayList);
-                        }
-                        else{
-                            Toast.makeText(MainActivity.this, "Error Reading data"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error Reading data" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
     }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
 
 
 

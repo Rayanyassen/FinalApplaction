@@ -34,6 +34,6 @@
             android:id="@+id/lstvprofiles"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/ic_launcher_background" />
+            android:background="@color/white" />
     </LinearLayout>
 </RelativeLayout>

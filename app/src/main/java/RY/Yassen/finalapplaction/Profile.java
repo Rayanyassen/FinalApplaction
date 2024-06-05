@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +60,7 @@ public class Profile extends AppCompatActivity {
         Et_phone = findViewById(R.id.Et_phone);
         ET_Username=findViewById(R.id.ET_Username);
         ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
-        imgBtnl=findViewById(R.id.imgBtn);
+        imgBtnl=findViewById(R.id.imgBtnprofile);
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -194,7 +195,7 @@ public class Profile extends AppCompatActivity {
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
             ET_city.setError("Wrong CityName");
         }
-        if (phone.length() != 10 && phone.contains(" ") == true) {
+        if (phone.length() < 10 && phone.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يهطي نتيجه خاطئه
             isAllok = false;
             // عرض ملاحظه خطا على الشاشه داخل حقل الملف الشخصي
@@ -226,7 +227,7 @@ public class Profile extends AppCompatActivity {
         }
 
     }
-
+// داله تقوم بحفظ الProfile
 
     private void SaveProfile_FB() {
         //مؤشر لقاعدة البيانات

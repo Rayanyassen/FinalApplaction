@@ -2,6 +2,8 @@ package RY.Yassen.finalapplaction;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,13 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import RY.Yassen.finalapplaction.Data.PlayerTable.MyPlayer;
 
-public class skills extends AppCompatActivity {
+public class skillsactivty extends AppCompatActivity {
     private FloatingActionButton fabaddskills;
     private SearchView srchvskills;
     private Spinner spinerskills;
@@ -33,7 +36,7 @@ MyPlayer player=new MyPlayer();
             public void onClick(View v) {
 
 
-                Intent i=new Intent(skills.this,addskills.class);
+                Intent i=new Intent(skillsactivty.this,addskills.class);
                 startActivity(i);
                 finish();
             }
@@ -43,6 +46,30 @@ MyPlayer player=new MyPlayer();
         listskills=findViewById(R.id.lstvskills);
 
     }
+    public void showPopUpMenu(View v) {
+        //popup menu بناء قائمه
+        PopupMenu popup = new PopupMenu(this, v);//الكائن الذي سبب فتح القائمه v
+        //ملف القائمه
+        popup.inflate(R.menu.popup_menu);
+        //اضافه معالج حدث لاختيار عنصر من القائمه
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuitem) {
+                if (menuitem.getItemId() == R.id.itmdelskill) {
+                    Toast.makeText(skillsactivty.this, "Add", Toast.LENGTH_SHORT).show();
+
+                    Intent i = new Intent(skillsactivty.this, addskills.class);
+                    startActivity(i);
+                }
+
+                return true;
+            }
+        });
+        popup.show();
+
+    }
+
+
 
     @Override
     protected void onResume() {
@@ -58,7 +85,7 @@ MyPlayer player=new MyPlayer();
         return true;
     }
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==R.id.itmAddskills){
+        if (item.getItemId()==R.id.itmdelskill){
             onclickSkills();
         }
         return true;
@@ -67,7 +94,7 @@ MyPlayer player=new MyPlayer();
 
 
     public void onclickSkills() {
-        Intent i = new Intent(skills.this, addskills.class);
+        Intent i = new Intent(skillsactivty.this, addskills.class);
         startActivity(i);
         finish();
     }

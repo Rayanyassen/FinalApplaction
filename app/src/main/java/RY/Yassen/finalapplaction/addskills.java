@@ -59,7 +59,7 @@ public class addskills extends AppCompatActivity {
         ET_Text = findViewById(R.id.ET_Text);
         btnsaveskills = findViewById(R.id.btnsave);
         btncancelskills = findViewById(R.id.btncancel);
-        videoview = findViewById(R.id.videoView);
+        videoview = findViewById(R.id.uplvideo);
         uplvedio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,13 +86,12 @@ public class addskills extends AppCompatActivity {
         skillss.setId(id);
         //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص   نجاح المطلوب
         // معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection(PROFILE).document(uid).collection(SKILLS).document(id).set(skillss).addOnCompleteListener(new OnCompleteListener<Void>() {
+            db.collection(PROFILE).document(uid).collection(SKILLS).document(id).set(skillss).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(addskills.this, "Succeeded to Add skill", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(addskills.this, MainActivity.class);
-                    startActivity(i);
+                   finish();
 
 
                 } else {
@@ -106,9 +105,6 @@ public class addskills extends AppCompatActivity {
 
 
     }
-
-
-
 
     private void checknewskills(){
         boolean isAllOK = true;
@@ -265,7 +261,7 @@ public class addskills extends AppCompatActivity {
     }
 
     public void onclickCancel(View v) {
-        Intent i = new Intent(addskills.this, skills.class);
+        Intent i = new Intent(addskills.this, skillsactivty.class);
         startActivity(i);
         finish();
     }

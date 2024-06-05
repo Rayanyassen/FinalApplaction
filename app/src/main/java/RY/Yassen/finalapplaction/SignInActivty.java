@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class SignInActivty extends AppCompatActivity {
@@ -25,8 +26,8 @@ public class SignInActivty extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_activty);
-        //to do check also profile
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null )
+        //يفحص اذا كان هنالك حساب خاص موجود في التطبيق
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
         {
             Intent i= new Intent(SignInActivty.this, MainActivity.class);
             startActivity(i);

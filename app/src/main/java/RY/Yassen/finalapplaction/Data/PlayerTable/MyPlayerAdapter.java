@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,10 +37,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import RY.Yassen.finalapplaction.MainActivity;
-import RY.Yassen.finalapplaction.Profile;
 import RY.Yassen.finalapplaction.R;
-import RY.Yassen.finalapplaction.skills;
+import RY.Yassen.finalapplaction.skillsactivty;
 
 public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
     private final int itemLayout;
@@ -73,17 +70,15 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         TextView tvCity = vitem.findViewById(R.id.tvItmCity);
         TextView tvNumber = vitem.findViewById(R.id.tvItmNumber);
         ImageView btnSendSMS = vitem.findViewById(R.id.imgBtnSendSmsitm);
-        ImageView btnEdit = vitem.findViewById(R.id.imgBtnEdititm);
+        ImageView btnWhats = vitem.findViewById(R.id.imgBtnWhats);
         ImageView btnCall = vitem.findViewById(R.id.imgBtnCallitm);
         ImageView btnDel = vitem.findViewById(R.id.imgBtnDeleteitm);
-        ImageView btnskills=vitem.findViewById(R.id.imgBtn);
+        ImageView btnskills=vitem.findViewById(R.id.imgBtnprofile);
         //קבלת הנתון (עצם) הנוכחי
         MyPlayer current = getItem(position);
-        tvName.setText(current.getShortTitlePlayer());
-        tvCity.setText(current.getTextPlayer());
+        tvCity.setText(current.getYourCity());
         tvName.setText("My Name is " + current.getFirstName() + " " + current.getLastName());
-        tvCity.setText("I live in " + current.getYourCity());
-        tvNumber.setText("Phone number:" + current.getPhone());
+        tvNumber.setText("Phone number: " + current.getPhone());
         btnSendSMS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,15 +101,15 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         btnskills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), skills.class);
+                Intent i = new Intent(getContext(), skillsactivty.class);
                 i.putExtra("Player",current);
               getContext().startActivity(i);
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
+        btnWhats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSendWhatsAppV2(current.getTextPlayer(),current.getPhone());
+                openSendWhatsAppV2(" ",current.getPhone());
             }
         });
         downloadImageUsingPicasso(current.getImage(),imageProfile);
@@ -164,7 +159,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
                 .load(imageUrL)//הורדת התמונה לפי כתובת
                 .centerCrop()
                 .error(R.drawable.ic_launcher_background)//התמונה שמוצגת אם יש בעיה בהורדת התמונה
-                .resize(90, 90)//שינוי גודל התמונה
+                .resize(1000, 1000)//שינוי גודל התמונה
                 .into(toView);// להציג בריכיב התמונה המיועד לתמונה זו
     }
 
@@ -253,8 +248,6 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
     {
         //הפנייה/כתובת  הפריט שרוצים למחוק
         FirebaseFirestore db= FirebaseFirestore.getInstance();
-
-
         db.collection("Profile").document(myplayer.getUid()).
                 delete().//מאזין אם המחיקה בוצעה
                 addOnCompleteListener(new OnCompleteListener<Void>() {

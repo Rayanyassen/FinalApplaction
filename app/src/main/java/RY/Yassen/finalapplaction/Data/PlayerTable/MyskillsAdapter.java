@@ -8,15 +8,19 @@ import static androidx.core.content.PermissionChecker.checkSelfPermission;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -38,9 +41,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import RY.Yassen.finalapplaction.R;
-import RY.Yassen.finalapplaction.skills;
+import RY.Yassen.finalapplaction.skillsactivty;
 
-public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
+public class MyskillsAdapter extends ArrayAdapter<Skills> {
     private final int itemLayout;
 
     /**
@@ -63,79 +66,66 @@ public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
         if (vitem == null)
             vitem = LayoutInflater.from(getContext()).inflate(itemLayout, parent, false);
         //קבלת הפניות לרכיבים בקובץ העיצוב
-
-
-        ImageView imgplay = vitem.findViewById(R.id.imgplay);
-        ImageView imgpuase = vitem.findViewById(R.id.imgpuase);
-        ImageView imgstop = vitem.findViewById(R.id.imgstop);
-        ImageView btnDel = vitem.findViewById(R.id.imgBtnDeleteitm);
+        VideoView videoskill=vitem.findViewById(R.id.videoskills);
+        ImageView imagplay = vitem.findViewById(R.id.imgplay);
+        ImageView imagpuase = vitem.findViewById(R.id.imgpuase);
+        ImageView imagstop = vitem.findViewById(R.id.imgstop);
+        ImageView imaginfo = vitem.findViewById(R.id.imginfo);
         //קבלת הנתון (עצם) הנוכחי
-        MyPlayer current = getItem(position);
-
-        btnSendSMS.setOnClickListener(new View.OnClickListener() {
+        Skills currents = getItem(position);
+        videoskill.setVideoURI(Uri.parse(currents.getVideo()));
+        videoskill.seekTo(1);
+        imagplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openSendSmsApp(current.getTextPlayer(),current.phone);
+                videoskill.start();
             }
         });
-        btnCall.setOnClickListener(new View.OnClickListener() {
+        imagpuase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callAPhoneNumber(current.phone);
+                videoskill.pause();
             }
         });
-        btnDel.setOnClickListener(new View.OnClickListener() {
+        imagstop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                delMyPlayerFromDB_FB( player);
-
+                videoskill.stopPlayback();
             }
         });
-        btnskills.setOnClickListener(new View.OnClickListener() {
+        imaginfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), skills.class);
-                i.putExtra("Player",current);
-              getContext().startActivity(i);
+                showPopUpMenu(v);
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openSendWhatsAppV2(current.getTextPlayer(),current.getPhone());
-            }
-        });
-        downloadImageUsingPicasso(current.getImage(),imageProfile);
-
-
 
         return vitem;
     }
+    public void showPopUpMenu(View p) {
+        //popup menu بناء قائمه
+        PopupMenu popup = new PopupMenu(getContext(), p);//الكائن الذي سبب فتح القائمه p
+        //ملف القائمه
+        popup.inflate(R.menu.popup_menu);
+        //اضافه معالج حدث لاختيار عنصر من القائمه
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuitem) {
+                if (menuitem.getItemId() == R.id.itmdelskill) {
+                    Toast.makeText(getContext(), "Delete", Toast.LENGTH_SHORT).show();
 
-    /**
-     * פתיחת אפליקצית שליחת whatsapp
-     *
-     * @param msg   .. ההודעה שרוצים לשלוח
-     * @param phone
-     */
-    public void openSendWhatsAppV2(String msg, String phone) {
-        //אינטנט מרומז לפתיחת אפליקצית ההודות סמס
-        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-        ;
-        String url = null;
-        try {
-            url = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + URLEncoder.encode(msg, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            //throw new RuntimeException(e);
-            e.printStackTrace();
-            Toast.makeText(getContext(), "there is no whatsapp!!", Toast.LENGTH_SHORT).show();
-        }
-        sendIntent.setData(Uri.parse(url));
-        sendIntent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        sendIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        //פתיחת אפליקציית ה סמס
-        getContext().startActivity(sendIntent);
+                    Intent i = new Intent(getContext(), skillsactivty.class);
+
+                    getContext().startActivity(i);
+                }
+
+                return true;
+            }
+        });
+        popup.show();
+
     }
+
 
 
     /**
@@ -157,10 +147,10 @@ public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
     }
 
     /**
-     * הורדת הקובץ/התמונה לאחסון מיקומי של הטלפון והגתה על רכיב תמונה
+     * הורדת הקובץ/התמונה לאחסון מיקומי של הטלפון והגתה על רכיב וִידֵאוֹ
      *
      * @param fileURL כתובת הקובץ באחסון הענן
-     * @param toView  רכיב התמונה המיועד להצגת התמונה
+     * @param toView  רכיב וִידֵאוֹ המיועד להצגת וִידֵאוֹ
      */
     private void downloadImageToLocalFile(String fileURL, final ImageView toView) {
         if (fileURL == null) return;// אם אין תמונה= כתובת ריקה אז לא עושים כלום מפסיקים את הפעולה
@@ -168,13 +158,13 @@ public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
         StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(fileURL);
         final File localFile;
         try {// יצירת קובץ מיקומי לפי שם וסוג קובץ
-            localFile = File.createTempFile("images", "jpg");
+            localFile = File.createTempFile("Videos", "mp4");
             //הורדת הקובץ והוספת מאיזין שבודק אם ההורדה הצליחה או לא
             httpsReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     // Local temp file has been created
-                    Toast.makeText(getContext(), "downloaded Image To Local File", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "downloaded video To Local File", Toast.LENGTH_SHORT).show();
                     toView.setImageURI(Uri.fromFile(localFile));
                 }
                 //מאזין אם ההורדה נכשלה
@@ -192,71 +182,68 @@ public class MyskillsAdapter extends ArrayAdapter<MyPlayer> {
     }
 
     /**
-     * פתיחת אפליקצית שליחת sms
-     *
-     * @param msg   .. ההודעה שרוצים לשלוח
-     * @param phone
+     * הורדת קובץ/וִידֵאוֹ לזיכרון של הטלפון (לא לאחסון)
+     * @param fileURL כתובת הקובץ באחסון הענן
+     * @param toView רכיב וִידֵאוֹ המיועד להצגת וִידֵאוֹ
      */
-    public void openSendSmsApp(String msg, String phone) {
-        //אינטנט מרומז לפתיחת אפליקצית ההודות סמס
-        Intent smsIntent = new Intent(Intent.ACTION_SENDTO);
-        //מעבירים מספר הטלפון
-        smsIntent.setData(Uri.parse("smsto:" + phone));
-        //ההודעה שנרצה שתופיע באפליקצית ה סמס
-        smsIntent.putExtra("sms_body", msg);
-        smsIntent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-        smsIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        //פתיחת אפליקציית ה סמס
-        getContext().startActivity(smsIntent);
-    }
+    private void downloadImageToMemory(String fileURL, final ImageView toView)
+    {
+        if(fileURL==null)return;
+        // הפניה למיקום הקובץ באיחסון
+        StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(fileURL);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        //הורדת הקובץ והוספת מאזין שבודק אם ההורדה הצליחה או לא
+        httpsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                // Data for "images/island.jpg" is returns, use this as needed
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
-    /**
-     * @param phone מספר טלפון שרוצים להתקשר אליו
-     */
-    private void callAPhoneNumber(String phone) {
-        //בדיקה אם יש הרשאה לביצוע שיחה
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
-            //בדיקה אם ההרשאה לא אושרה בעבר
-            if (checkSelfPermission(getContext(), CALL_PHONE) == PermissionChecker.PERMISSION_DENIED) {
-                //רשימת ההרשאות שרוצים לבקש אישור
-                String[] permissions = {CALL_PHONE};
-                //בקשת אישור הרשאות (שולחים קוד הבקשה)
-                //התשובה תתקבל בפעולה onRequestPermissionsResult
-                requestPermissions((Activity) getContext(), permissions, 100);
-            } else {
-                //אינטנט מרומז לפתיחת אפליקצית ההודות סמס
-                Intent phone_intent = new Intent(Intent.ACTION_CALL);
-                phone_intent.setData(Uri.parse("tel:" + phone));
-                getContext().startActivity(phone_intent);
+
+                toView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 90, 90, false));
+                Toast.makeText(getContext(), "downloaded Image To Memory", Toast.LENGTH_SHORT).show();
 
 
             }
-        }
-    }
-    /**
-     * מחיקת פריט כולל התמונה מבסיס הנתונים
-     * @param myplayer הפריט שמוחקים
-     */
-    private void delMyPlayerFromDB_FB(MyPlayer myplayer )
-    {
-        //הפנייה/כתובת  הפריט שרוצים למחוק
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
-
-
-        db.collection("Profile").document(myplayer.getUid()).
-                delete().//מאזין אם המחיקה בוצעה
-                addOnCompleteListener(new OnCompleteListener<Void>() {
+            //מאזין אם ההורדה נכשלה
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    remove(myplayer);// מוחקים מהמתאם
-                    deleteFile(myplayer.getImage());// מחיקת הקובץ
-                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
-                }
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Toast.makeText(getContext(), "onFailure downloaded Image To Local File "+exception.getMessage(), Toast.LENGTH_SHORT).show();
+                exception.printStackTrace();
             }
         });
+
+
     }
+
+
+
+//    /**
+//     * מחיקת פריט כולל התמונה מבסיס הנתונים
+//     * @param myplayer הפריט שמוחקים
+//     */
+//    private void delMyPlayerFromDB_FB(MyPlayer myplayer )
+//    {
+//        //הפנייה/כתובת  הפריט שרוצים למחוק
+//        FirebaseFirestore db= FirebaseFirestore.getInstance();
+//
+//
+//        db.collection("Profile").document(myplayer.getUid()).
+//                delete().//מאזין אם המחיקה בוצעה
+//                addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful())
+//                {
+//                    remove(myplayer);// מוחקים מהמתאם
+//                    deleteFile(myplayer.getImage());// מחיקת הקובץ
+//                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
     /**
      * מחיקת קובץ האיחסון הענן
      * @param fileURL כתובת הקובץ המיועד למחיקה

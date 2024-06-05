@@ -15,11 +15,8 @@ public class MyPlayer implements Serializable {
     public String phone ;
     private boolean areyouinClub; // هل انت في فريق حالي
     public long profile;//الملف الشخصي
-    public String shortTitlePlayer;
     public String textPlayer;
-    public String importancePlayer;
     private String uid;
-
     public String getImage() {
         return Image;
     }
@@ -94,13 +91,6 @@ public class MyPlayer implements Serializable {
         this.profile = profile;
     }
 
-    public String getShortTitlePlayer() {
-        return shortTitlePlayer;
-    }
-
-    public void setShortTitlePlayer(String shortTitlePlayer) {
-        this.shortTitlePlayer = shortTitlePlayer;
-    }
 
     public String getTextPlayer() {
         return textPlayer;
@@ -110,13 +100,6 @@ public class MyPlayer implements Serializable {
         this.textPlayer = textPlayer;
     }
 
-    public String getImportancePlayer() {
-        return importancePlayer;
-    }
-
-    public void setImportancePlayer(String importancePlayer) {
-        this.importancePlayer = importancePlayer;
-    }
 
     public void setUid(String uid) {
         this.uid = uid;

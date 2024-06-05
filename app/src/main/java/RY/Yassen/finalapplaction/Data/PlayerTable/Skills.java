@@ -1,12 +1,10 @@
 package RY.Yassen.finalapplaction.Data.PlayerTable;
 
-import android.net.Uri;
-
 public class Skills {
 public String uid;
 public String id;
 public String video;
-public String Text;
+public String text;
 
 
     public String getUid() {
@@ -30,12 +28,16 @@ public String Text;
         this.video = video;
     }
 
+    public String getVideo() {
+        return video;
+    }
+
     public String getText() {
-        return Text;
+        return text;
     }
 
     public void setText(String text) {
-        Text = text;
+        this.text = text;
     }
 
     @Override
@@ -44,7 +46,7 @@ public String Text;
                 "uid='" + uid + '\'' +
                 ", id='" + id + '\'' +
                 ", Video='" + video + '\'' +
-                ", Text='" + Text + '\'' +
+                ", Text='" + text + '\'' +
                 '}';
     }
 }
