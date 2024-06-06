@@ -26,7 +26,6 @@ import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.PermissionChecker;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -72,19 +71,16 @@ public class MyskillsAdapter extends ArrayAdapter<Skills> {
             vitem = LayoutInflater.from(getContext()).inflate(itemLayout, parent, false);
 
         //קבלת הפניות לרכיבים בקובץ העיצוב
-        VideoView videoskill = vitem.findViewById(R.id.videoskills);
+        VideoView videoskill=vitem.findViewById(R.id.videoskills);
         ImageView imagplay = vitem.findViewById(R.id.imgplay);
         ImageView imagpuase = vitem.findViewById(R.id.imgpuase);
         ImageView imagstop = vitem.findViewById(R.id.imgstop);
         ImageView imaginfo = vitem.findViewById(R.id.imginfo);
-
-
-
         //קבלת הנתון (עצם) הנוכחי
         Skills currents = getItem(position);
         videoskill.setVideoURI(Uri.parse(currents.getVideo()));
         //to do addthreads
-        // videoskill.seekTo(2);
+       // videoskill.seekTo(2);
         imagplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +108,6 @@ public class MyskillsAdapter extends ArrayAdapter<Skills> {
 
         return vitem;
     }
-
     public void showPopUpMenu(View p) {
         //popup menu بناء قائمه
         PopupMenu popup = new PopupMenu(getContext(), p);//الكائن الذي سبب فتح القائمه p
@@ -136,8 +131,6 @@ public class MyskillsAdapter extends ArrayAdapter<Skills> {
         popup.show();
 
     }
-
-
 
 
 
@@ -284,62 +277,6 @@ public class MyskillsAdapter extends ArrayAdapter<Skills> {
             }
         });
     }
-
-//
-//        private MediaPlayer mediaPlayer;
-//        private Uri videoUri;
-//
-//        @Override
-//        protected void onCreate(Bundle savedInstanceState) {
-//            super.onCreate(savedInstanceState);
-//            setContentView(R.layout.activity_main);
-//
-//            // Get the VideoView from layout
-//            VideoView videoView = findViewById(R.id.videoView);
-//
-//            // Set the URI for the video
-//            videoUri = Uri.parse("your_video_uri_here");
-//
-//            // Set up MediaPlayer
-//            mediaPlayer = new MediaPlayer();
-//            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-//
-//            try {
-//                mediaPlayer.setDataSource(getApplicationContext(), videoUri);
-//                mediaPlayer.prepareAsync(); // Prepare asynchronously
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            // Set up event listeners
-//            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                @Override
-//                public void onPrepared(MediaPlayer mp) {
-//                    // Start playback when MediaPlayer is prepared
-//                    mediaPlayer.start();
-//                }
-//            });
-//
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mp) {
-//                    // Release MediaPlayer resources after playback completes
-//                    mediaPlayer.release();
-//                }
-//            });
-//        }
-//
-//        @Override
-//        protected void onDestroy() {
-//            super.onDestroy();
-//            // Release MediaPlayer resources when activity is destroyed
-//            if (mediaPlayer != null) {
-//                mediaPlayer.release();
-//                mediaPlayer = null;
-//            }
-//        }
-//    }
-
 
 }
 
