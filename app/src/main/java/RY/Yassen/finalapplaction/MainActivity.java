@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        readTaskFrom_FB();
+        readPlayerFrom_FB();
 
     }
 
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return .... רשימת הנתונים שנקראה ממסד הנתונים
      */
-    public void readTaskFrom_FB() {
+    public void readPlayerFrom_FB() {
         //בניית רשימה ריקה
         ArrayList<MyPlayer> arrayList = new ArrayList<>();
         //קבלת הפנייה למסד הנתונים

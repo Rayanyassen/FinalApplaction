@@ -73,7 +73,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         ImageView btnWhats = vitem.findViewById(R.id.imgBtnWhats);
         ImageView btnCall = vitem.findViewById(R.id.imgBtnCallitm);
         ImageView btnDel = vitem.findViewById(R.id.imgBtnDeleteitm);
-        ImageView btnskills=vitem.findViewById(R.id.imgBtnprofile);
+        ImageView btnskills=vitem.findViewById(R.id.imgBtnskills);
         //קבלת הנתון (עצם) הנוכחי
         MyPlayer current = getItem(position);
         tvCity.setText(current.getYourCity());
@@ -240,28 +240,7 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
             }
         }
     }
-    /**
-     * מחיקת פריט כולל התמונה מבסיס הנתונים
-     * @param myplayer הפריט שמוחקים
-     */
-    private void delMyPlayerFromDB_FB(MyPlayer myplayer )
-    {
-        //הפנייה/כתובת  הפריט שרוצים למחוק
-        FirebaseFirestore db= FirebaseFirestore.getInstance();
-        db.collection("Profile").document(myplayer.getUid()).
-                delete().//מאזין אם המחיקה בוצעה
-                addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful())
-                {
-                    remove(myplayer);// מוחקים מהמתאם
-                    deleteFile(myplayer.getImage());// מחיקת הקובץ
-                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
     /**
      * מחיקת קובץ האיחסון הענן
      * @param fileURL כתובת הקובץ המיועד למחיקה
@@ -290,6 +269,28 @@ public class MyPlayerAdapter extends ArrayAdapter<MyPlayer> {
         });
     }
 
+    /**
+     * מחיקת פריט כולל התמונה מבסיס הנתונים
+     * @param myplayer הפריט שמוחקים
+     */
+    private void delMyPlayerFromDB_FB(MyPlayer myplayer )
+    {
+        //הפנייה/כתובת  הפריט שרוצים למחוק
+        FirebaseFirestore db= FirebaseFirestore.getInstance();
+        db.collection("Profile").document(myplayer.getUid()).
+                delete().//מאזין אם המחיקה בוצעה
+                addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    remove(myplayer);// מוחקים מהמתאם
+                    deleteFile(myplayer.getImage());// מחיקת הקובץ
+                    Toast.makeText(getContext(), "deleted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 }
 
 

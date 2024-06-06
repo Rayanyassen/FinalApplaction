@@ -78,7 +78,7 @@
                     app:srcCompat="@drawable/whatsappicon" />
 
                 <ImageView
-                    android:id="@+id/imgBtnprofile"
+                    android:id="@+id/imgBtnskills"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_weight="1"

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -60,7 +59,7 @@ public class Profile extends AppCompatActivity {
         Et_phone = findViewById(R.id.Et_phone);
         ET_Username=findViewById(R.id.ET_Username);
         ET_RUINCLUB=findViewById(R.id.ET_RUINCLUB);
-        imgBtnl=findViewById(R.id.imgBtnprofile);
+        imgBtnl=findViewById(R.id.imgBtnskills);
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

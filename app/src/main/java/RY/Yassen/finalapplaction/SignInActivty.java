@@ -31,6 +31,7 @@ public class SignInActivty extends AppCompatActivity {
         {
             Intent i= new Intent(SignInActivty.this, MainActivity.class);
             startActivity(i);
+            finish();
         }
         Et_E_mail=findViewById(R.id.Et_E_mail);
         Et_Password=findViewById(R.id.Et_Password);

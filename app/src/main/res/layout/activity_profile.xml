@@ -131,7 +131,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageButton
-            android:id="@+id/imgBtnprofile"
+            android:id="@+id/imgBtnskills"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:minHeight="48dp"
