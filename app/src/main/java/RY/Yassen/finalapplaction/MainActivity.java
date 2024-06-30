@@ -3,13 +3,19 @@ package RY.Yassen.finalapplaction;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.MediaController;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Spinner spinnerProfiles;
     ListView lstviewProfiles;
     MyPlayerAdapter myPlayerAdapter;
+    private Dialog dialog;
 
 
     @Override
@@ -139,7 +146,13 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
+
+
+
+
+
 }
+
 
 
 

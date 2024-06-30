@@ -66,28 +66,7 @@ public class skillsactivty extends AppCompatActivity {
 
 
 
-    public void showPopUpMenu(View v) {
-        //popup menu بناء قائمه
-        PopupMenu popup = new PopupMenu(this, v);//الكائن الذي سبب فتح القائمه v
-        //ملف القائمه
-        popup.inflate(R.menu.popup_menu);
-        //اضافه معالج حدث لاختيار عنصر من القائمه
-        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuitem) {
-                if (menuitem.getItemId() == R.id.itmdelskill) {
-                    Toast.makeText(skillsactivty.this, "Add", Toast.LENGTH_SHORT).show();
 
-                    Intent i = new Intent(skillsactivty.this, addskills.class);
-                    startActivity(i);
-                }
-
-                return true;
-            }
-        });
-        popup.show();
-
-    }
 
 
     @Override
@@ -102,26 +81,21 @@ public class skillsactivty extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.popup_menu, menu);
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.itmdelskill) {
-            onclickSkills();
-        }
+
+
         return true;
 
     }
 
 
-    public void onclickSkills() {
-        Intent i = new Intent(skillsactivty.this, addskills.class);
-        startActivity(i);
-        finish();
 
 
-    }
+
+
     /**
      * קריאת נתונים ממסד הנתונים firestore
      *
