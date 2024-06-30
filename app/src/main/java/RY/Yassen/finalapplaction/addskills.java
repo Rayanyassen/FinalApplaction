@@ -49,7 +49,7 @@ public class addskills extends AppCompatActivity {
     private ImageView uplvedio;//כפתור/ לחצן לבחירת תמונה והצגתה
     private VideoView videoview;
     private Skills skillss = new Skills();//עצם/נתון שרוצים לשמור
-
+//kbjkjnbmnmn
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
